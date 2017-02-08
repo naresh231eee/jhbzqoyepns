@@ -1,0 +1,107 @@
+ .mainBody{
+	width: 1294px;
+}
+
+.mainHeader35{
+	background-color: #00402E;
+	width: 1294px;
+	height: 35px;
+}
+.mainHeader100{
+	background-color: #006A4D;
+	width: 1294px;
+	height: 120px; opacity: 1;
+
+}
+.primary-header{ background: #006A4D;}
+.secondary-header {  background: #2d8259; }
+.main-content { background-color: #fff;  margin-bottom:50px;}
+.header {padding: 10px 0 10px 30px;}
+.product-containers {
+    background-color: #f5f5f5; 
+    border: 1px solid #649c00; 
+    border-radius: 4px; 
+    font-size: .951em;
+    font-weight:bold;
+    line-height: 1.41;
+    margin-top: 30px;
+    color: #006a4d;
+}
+.product-containers:hover { }
+.txt-color{ color:#505050; font-size: 1em; font-weight: bold;}
+.multiselect {
+        width: 200px;
+    }
+    .selectBox {
+        position: relative;
+    }
+    .selectBox select {
+        width: 100%;
+        font-weight: bold;
+    }
+    .overSelect {
+        position: absolute;
+        left: 0; right: 0; top: 0; bottom: 0;
+    }
+    #checkboxes {
+        display: none;
+        border: 1px #dadada solid;
+    }
+    #checkboxes label {
+        display: block;
+    }
+    #checkboxes label:hover {
+        background-color: #1e90ff;
+    }
+    .padding-left-45{
+        padding-left:45px;
+    }
+    .margin-right-10{
+        margin-right:10px;
+    }
+    .margin-top-30{
+        margin-top: 30px;
+    }
+    .margin-top-bottom-10{margin-top:10px;margin-bottom:10px;}
+    .margin-bottom-50px{ margin-bottom: 50px; }
+    .btn-default {background: #649c00 !important; color:#fff; font-weight:bold;}
+
+    input[type="text"], select {
+        height: 30px;
+        width: 80%;
+        font-weight: normal;
+    }
+    textarea{ width:94%; }
+    input[type="checkbox"] { width:25px; height:20px; margin: 10px 15px;}
+    .bankEntity {     
+        height: 100px;
+        background-color: #fff;
+        text-align: center;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 4px;
+        border: 1px solid #649c00;
+    }
+
+    .boxMinWidth{
+        min-width: 120px;
+    }
+    .displayBlock{ display: block; }
+    .displayNone{ display: none; }
+
+.expandable {
+    padding-top: 15px;
+    /* overflow set to hidden to hide the expanded text */
+    overflow: hidden;
+    /* all style changes will ease-in-out for 1s */
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    transition: all 1s;
+     
+      height: 20px;
+      width: 100%
+}
+.maxHeight { height : auto !important;}
+p{ padding:10px}
