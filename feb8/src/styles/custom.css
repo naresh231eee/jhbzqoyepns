@@ -1,34 +1,30 @@
- .mainBody{
-	width: 1294px;
-}
-
-.mainHeader35{
-	background-color: #00402E;
-	width: 1294px;
-	height: 35px;
-}
-.mainHeader100{
-	background-color: #006A4D;
-	width: 1294px;
-	height: 120px; opacity: 1;
-
-}
-.primary-header{ background: #006A4D;}
+.mainBody{ width: 1294px; }
+.container { width: 100% !important;}
+.container-fluid { padding-right: 5px; padding-left: 5px; }
+.col-sm-1, .col-md-1, .col-lg-1 { padding-right: 2px; padding-left: 2px;}
+.currencyCol .col-md-12, .currencyCol .col-md-5, .currencyCol .col-md-7 {padding-left:5px; padding-right: 0px; margin-right: -25px !important;}
+.currencyCheckboxColumn { margin-right: -25px !important;}
+.mainHeader35{ background-color: #00402E; width: 1294px; height: 35px; }
+.mainHeader100{ background-color: #006A4D; width: 1294px; height: 120px; opacity: 1; }
+.message-success{font-weight: bold;   }
+.primary-header{ background: #006A4D; padding-left: 30px;}
+.messages-header{ background: #deebe5; text-align:center; padding-top:5px;}
 .secondary-header {  background: #2d8259; }
-.main-content { background-color: #fff;  margin-bottom:50px;}
-.header {padding: 10px 0 10px 30px;}
-.product-containers {
-    background-color: #f5f5f5; 
-    border: 1px solid #649c00; 
-    border-radius: 4px; 
+.displayProductName{ background: #333333; padding: 5px; color: #fff; overflow: hidden; border: 1px solid #fff; }
+.main-content { background-color: #fff;  margin-bottom:50px; padding-top:195px;}
+.header {     padding: 15px 0 15px 0px; }
+.product-containers, .trading-containers{
+    background-color: #f5f5f5;
+    border: 1px solid #649c00;
+    border-radius: 4px;
     font-size: .951em;
     font-weight:bold;
     line-height: 1.41;
-    margin-top: 30px;
+    margin-top: 5px;
     color: #006a4d;
 }
 .product-containers:hover { }
-.txt-color{ color:#505050; font-size: 1em; font-weight: bold;}
+.txt-color{ color:#505050; font-size: 1em; font-weight: bold; margin-top: 10px;}
 .multiselect {
         width: 200px;
     }
@@ -56,41 +52,114 @@
     .padding-left-45{
         padding-left:45px;
     }
+    .padding-left-90{ padding-left: 90px; }
+    .margin-left-25{ margin-left: 25px; }
+    .margin-left-50{ margin-left: 50px; }
     .margin-right-10{
         margin-right:10px;
+    }
+    .margin-right-30, #tradingBox{
+        margin-right:30px;
     }
     .margin-top-30{
         margin-top: 30px;
     }
-    .margin-top-bottom-10{margin-top:10px;margin-bottom:10px;}
+    .margin-left-35-neg{ margin-left: -35px; }
+    .margin-top-bottom-10{margin-top:10px; margin-bottom:10px;}
+    .margin-top-10{ margin-top:10px;}
+    .margin-top-15{ margin-top:15px;}
+    .margin-top-20{margin-top:20px;}
+    .margin-bottom-10{margin-bottom:10px;}
     .margin-bottom-50px{ margin-bottom: 50px; }
-    .btn-default {background: #649c00 !important; color:#fff; font-weight:bold;}
-
-    input[type="text"], select {
-        height: 30px;
-        width: 80%;
+    .btn-default {color:#5c5c5c; font-weight:bold;}
+    .btn-success {background: #649c00 !important; color:#fff; font-weight:bold;}
+    .btn-primary { font-weight:bold;
+       color: #fff;
+       background-color: rgb(100, 156, 0);
+       border-color: #3c763d;}
+    .add { margin-bottom: 10px; }
+     input[type="text"], select, .Select-input {
+        height: 20px;
+        width: 100%;
         font-weight: normal;
+        margin-bottom: 10px;
     }
-    textarea{ width:94%; }
-    input[type="checkbox"] { width:25px; height:20px; margin: 10px 15px;}
-    .bankEntity {     
-        height: 100px;
-        background-color: #fff;
-        text-align: center;
-        padding: 20px;
-        margin: 20px 0;
-        border-radius: 4px;
-        border: 1px solid #649c00;
+  input[type="checkbox"][disabled] {cursor: pointer !important;}
+ .Select--multi .Select-value {
+      color: #333 !important;
+      background-color: rgba(1,155,1,0.28) !important;
+      border: 1px solid rgba(0,156,1,.34) !important;
+      font-size: .8em !important;
+      line-height: 1em !important;
+      font-weight: normal !important;
+ }
+.Select--multi .Select-input {  height: 0px; }
+ .Select-placeholder, :not(.Select--multi)>.Select-control .Select-value {line-height: 25px !important;}
+  .react-date-field__input { margin-bottom: 0px !important; }
+    textarea{ width:100%; font-weight: normal }
+    input[type="checkbox"] {
+       width: 15px;
+       height: 15px;
+       margin-right: 5px;
     }
+    .bankEntity label{
+        height: 30px;
+        /*margin-top: 20px;*/
+       font-weight:bold !important;
+       font-size:0.9em !important;
+    }
+    label {min-width: 135px;}
+    .inline{ margin-top: 6px; }
+    .segment label { height:15px; min-width: 50px !important; margin-right: 10px; margin-left: 10px !important;}
+    .channel { margin-top: 20px; }
+    .channel label { min-width: 105px !important; }
+    .channel .col-lg-1, .channel .col-md-1, .channel .col-sm-1 { min-width: 105px !important;}
 
-    .boxMinWidth{
-        min-width: 120px;
-    }
-    .displayBlock{ display: block; }
-    .displayNone{ display: none; }
+   /*.boxMinWidth{ min-width: 120px;}*/
+    h1 { color:#fff; font-size: 1.5em; padding: 13px 0 0 70px;}
+    h2 { color:#018752; font-size: 1.3em; font-weight:normal; line-height:1em; text-transform: uppercase;}
+    h3 {color:#018752; font-size: 1em; font-weight:normal; line-height:1em; text-transform: uppercase;}
 
-.expandable {
-    padding-top: 15px;
+
+    .nav-pills > li > a {color:#fff; font-size: 1.3em;}
+    .nav-pills > li > a:hover {background:#649c00; color:#333; font-size: 1.3em; border-radius:4px;}
+    table { border: 2px solid #649c00; }
+    .table thead>tr { background-color: #deebe5; line-height:3em;}
+    .table thead>tr>th { border-bottom: 2px solid #649c00; color:#018752;}
+    .table tr { line-height: 2em; }
+    .table tr>td>a {color: #003399; }
+
+    .add-on .input-group-btn > .btn {
+        border-left-width:0;left:-2px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
+    /* stop the glowing blue shadow */
+    .add-on .form-control:focus {
+        box-shadow:none;
+        -webkit-box-shadow:none;
+        border-color:#cccccc;
+    }
+    .add-on input { height:34px; }
+
+    hr { border-top: 2px solid #DBDBDB; margin-top: 15px; margin-bottom: 15px; }
+
+  span.requiredField{ color:#005293;}
+  .form-control-static {font-weight: normal !important;}
+  .tradingbg {
+     border: 1px solid #000;
+     font-weight: bold;
+     font-size: 1.2em;
+  }
+  .displayBlock{
+     display: block;
+  }
+ .displayNone{
+    display: none;
+ }
+ .close{padding-right: 50px;}
+ .expandable {
+    padding-top: 10px;
     /* overflow set to hidden to hide the expanded text */
     overflow: hidden;
     /* all style changes will ease-in-out for 1s */
@@ -99,9 +168,16 @@
     -o-transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     transition: all 1s;
-     
-      height: 20px;
-      width: 100%
-}
-.maxHeight { height : auto !important;}
-p{ padding:10px}
+
+    height: 20px;
+ }
+ .maxHeight { height : auto !important;}
+ .scrollablediv { overflow-x: scroll; overflow-y:hidden; white-space:nowrap;}
+ .form-group-padding { padding: 0 5px; }
+ .italicParastyles{
+    font-style: italic;
+    text-align: right;
+    font-size: 0.8em;
+    padding-right: 10px;
+ }
+ .smeStyles { width: 125px !important; }
