@@ -5158,17 +5158,35 @@ export const SME_SEGMENT = "SME Segment";
 export const MIFID_CLASS = "MIFID Classification";
 export const APPROVAL_RESTRICTION_TYPE = "Approval Restriction Type";
 export const BANK_ENTITY = "Bank Entity";
-export const EXCHANGE_NAME = "Exchange name";
-export const EXCHANGE_PRODUCT_SYMBOL = "Exchange Product Symbol";
-export const UNDERLYING_STATUS = "Underlying Status";
-export const APD_CURRENCY = "CCY1";
-export const TENOR = "Max Tenor";
-export const ISSUER_TYPE_OF_SECURITY = "Issuer Type Of Security";
-export const SECURITY_TYPE = "Security Type";
-export const REFERENCE_RATE = "Reference Rate";
 export const MANUFACTURER_LEGAL_NAME = "Legal Name of Manufacturer";
 export const DISTRIBUTOR_LEGAL_NAME = "Third Party Distributor Legal Name";
-export const MAXIMUM_NO_CALL_PERIOD = "Maximum No Call Period";
+
+
+export const APD_CURRENCY = "CCY1";
+export const REFERENCE_RATE = "Reference Rate";
+export const EXCHANGE = "Exchange";
+export const EXCHANGE_NAME = "Exchange name";
+export const EXCHANGE_SYMBOL = "Exchange Symbol";
+export const EXCHANGE_PLATFORM = "Exchange Platform";
+export const MAX_TENOR = "Max Tenor";
+export const OPEN_RISK_MAX_TENOR = "Open Risk Max Tenor";
+export const TRADE_SETTLEMENT_CASH = "Trade Settlement - Cash";
+export const TRADE_SETTLEMENT_PHYSICAL = "Trade Settlement - Physical";
+export const UNDERLYING_STATUS = "Underlying Status";
+
+/************* Commodities Features **********************/
+export const CORE_ASSETS = "Core Assets";
+export const SUB_ASSETS = "Sub Assets";
+export const COMMODITIES_REGION = "Commodities Region";
+export const PRODUCT_GRADE = "Product Grade";
+export const BASIS = "Basis";
+export const PRICE_SOURCE = "Price Source";
+export const BBG_PLATTS_CODE_FUTURE_TICKER = "BBG / Platts Code / Futures Ticker";
+
+/************* End of Commodities Features **********************/
+
+export const ISSUER_TYPE_OF_SECURITY = "Issuer Type Of Security";
+export const SECURITY_TYPE = "Security Type";
 
 export const ACTION_DISPLAY_MAP = new Map();
 ACTION_DISPLAY_MAP.set(ACTION_CONFIRM, "confirmed");
@@ -5178,16 +5196,16 @@ ACTION_DISPLAY_MAP.set(ACTION_SUBMIT, "submitted");
 ACTION_DISPLAY_MAP.set(ACTION_SAVE, "saved");
 
 export const GUI_SECTIONS_REFDATA = {
-  "CHANGE_DETAILS": [REASON_FOR_CHANGE],
-  "PRODUCT_DETAILS":[PRODUCT_REGISTER_LOCATION, BUSINESS_CASE_IDENTIFIER, BUSINESS_UNIT, ONE_MI_HIERARCHY,
-    PRODUCT_STATUS, CLIENT_JURISDICTION, OVERALL_RISK_STATUS, PRODUCT_FAMILY],
-  "VALUATION_DETAILS":[QL_PRODUCT, PRICING_MODEL],
-  "EXECUTION_DETAILS":[TRADE_BOOKING_SYSTEM, ADVISORY_BASIS, DISTRIBUTION_METHOD],
-  "GOVERNANCE_DETAILS":[],
-  "REGULATORY_DETAILS":[MIFID_CLASS, MIFID2_CLASS, ISDA_CLASS],
-  "TRADING_DESKS":[TRADING_DESK, APPROVAL_RESTRICTION_TYPE, BANK_ENTITY, EXCHANGE_NAME, EXCHANGE_PRODUCT_SYMBOL,
-    UNDERLYING_STATUS, APD_CURRENCY, TENOR, ISSUER_TYPE_OF_SECURITY, SECURITY_TYPE, REFERENCE_RATE,
-    MANUFACTURER_LEGAL_NAME, DISTRIBUTOR_LEGAL_NAME]
+   "CHANGE_DETAILS": [REASON_FOR_CHANGE],
+   "PRODUCT_DETAILS":[PRODUCT_REGISTER_LOCATION, BUSINESS_CASE_IDENTIFIER, BUSINESS_UNIT, ONE_MI_HIERARCHY,
+                      PRODUCT_STATUS, CLIENT_JURISDICTION, OVERALL_RISK_STATUS, PRODUCT_FAMILY],
+   "VALUATION_DETAILS":[QL_PRODUCT, PRICING_MODEL],
+   "EXECUTION_DETAILS":[TRADE_BOOKING_SYSTEM, ADVISORY_BASIS, DISTRIBUTION_METHOD],
+   "GOVERNANCE_DETAILS":[],
+   "REGULATORY_DETAILS":[MIFID_CLASS, MIFID2_CLASS, ISDA_CLASS],
+   "TRADING_DESKS":[TRADING_DESK, APPROVAL_RESTRICTION_TYPE, BANK_ENTITY, EXCHANGE_NAME, EXCHANGE_SYMBOL,
+                     UNDERLYING_STATUS, APD_CURRENCY, MAX_TENOR, ISSUER_TYPE_OF_SECURITY, SECURITY_TYPE, REFERENCE_RATE,
+                     MANUFACTURER_LEGAL_NAME, DISTRIBUTOR_LEGAL_NAME]
 };
 
 export const apiKeys = {
