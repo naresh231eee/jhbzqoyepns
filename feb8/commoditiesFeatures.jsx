@@ -2,10 +2,10 @@
  * Created by 8773465 on 02/11/2016.
  */
 import React from "react";
-import SelectBox from "./../formfields/select.js";
-import * as apidata from "./../api/api_form.jsx";
 import ReactDataGrid from "react-data-grid";
-import { Editors, Toolbar, Formatters } from "react-data-grid-addons";
+import {Editors, Toolbar, Formatters} from "react-data-grid-addons";
+import * as apidata from "./../api/api_form.jsx";
+
 const { AutoComplete: AutoCompleteEditor, DropDownEditor } = Editors;
 const { DropDownFormatter } = Formatters;
 
@@ -27,97 +27,156 @@ const IssueTypesEditor = <DropDownEditor options={issueTypes}/>;
 const IssueTypesFormatter = <DropDownFormatter options={issueTypes}/>;
 
 var CommoditiesFeatures= React.createClass({
-   /*let ccy1 = this.getRefDataValueForKey(apidata.APD_CURRENCY);
-   let referenceRateOptions = this.getRefDataValueForKey(apidata.REFERENCE_RATE);
-   let exchangeOptions = this.getRefDataValueForKey(apidata.EXCHANGE);
-   let exchangePlatformOptions = this.getRefDataValueForKey(apidata.EXCHANGE_PLATFORM);
-   let exchangeSymbolOptions = this.getRefDataValueForKey(apidata.EXCHANGE_SYMBOL);
-   let maxTenorOptions = this.getRefDataValueForKey(apidata.MAX_TENOR);
-   let openRiskMaxTenorOptions = this.getRefDataValueForKey(apidata.OPEN_RISK_MAX_TENOR);
-   let tradeSettlementCashOptions = this.getRefDataValueForKey(apidata.TRADE_SETTLEMENT_CASH);
-   let tradeSettlementPhysicalOptions = this.getRefDataValueForKey(apidata.TRADE_SETTLEMENT_PHYSICAL);
-   let underlyingStatus = this.getRefDataValueForKey(apidata.UNDERLYING_STATUS);
-
-   /!***** commodities Features *****!/
-   let coreAssetsOptions = this.getRefDataValueForKey(apidata.CORE_ASSETS);
-   let subAssetsOptions = this.getRefDataValueForKey(apidata.SUB_ASSETS);
-   let commoditiesRegionOptions = this.getRefDataValueForKey(apidata.COMMODITIES_REGION);
-   let productGradeOptions = this.getRefDataValueForKey(apidata.PRODUCT_GRADE);
-   let basisOptions = this.getRefDataValueForKey(apidata.BASIS);
-   let priceSourceOptions = this.getRefDataValueForKey(apidata.PRICE_SOURCE);
-   let bbgPlattsCodeFutureTickerOptions = this.getRefDataValueForKey(apidata.BBG_PLATTS_CODE_FUTURE_TICKER);
-
 
    getRefDataValueForKey(key){
       return this.props.refData.get(key);
-   },*/
+   },
+   formatRefDataForGrid(refDataObject){
+      if(refDataObject){
+         var formatted = new Array;
+         for(var i in refDataObject){
+            formatted[i] = {id: refDataObject[i].refDataId,
+               title : refDataObject[i].refDataValue
+            }
+         }
+      }
+      return formatted;
+   },
    getInitialState() {
+
+      let ccy1 = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.APD_CURRENCY));
+      let referenceRate = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.REFERENCE_RATE));
+      let exchange = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.EXCHANGE));
+      let exchangePlatform = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.EXCHANGE_PLATFORM));
+      let exchangeSymbol = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.EXCHANGE_SYMBOL));
+      let maxTenor = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.MAX_TENOR));
+      let openRisk = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.OPEN_RISK));
+      let openRiskMaxTenor = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.OPEN_RISK_MAX_TENOR));
+      let tradeSettlementCash = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.TRADE_SETTLEMENT_CASH));
+      let tradeSettlementPhysical = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.TRADE_SETTLEMENT_PHYSICAL));
+      let underlyingStatus = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.UNDERLYING_STATUS));
+
+
+      let coreAssets = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.CORE_ASSETS));
+      let subCategory = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.SUB_CATEGORY));
+      let subAssets = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.SUB_ASSETS));
+      let commoditiesRegion = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.COMMODITIES_REGION));
+      let productGrade = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.PRODUCT_GRADE));
+      let basis = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.BASIS));
+      let priceSource = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.PRICE_SOURCE));
+      let bbgPlattsCodeFutureTicker = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.BBG_PLATTS_CODE_FUTURE_TICKER));
+
       this._columns = [
          {
             key: 'id',
             name: 'ID',
             width: 30,
             locked: true
-         },
-         {
-            key: 'task',
-            name: 'Title',
+         }, {
+            key: 'Currency1',
+            name: 'Ccy1',
+            editor : <AutoCompleteEditor options={ccy1} />,
             editable: true,
             locked: true
-         },
-         {
-            key: 'name',
-            name: 'NAME',
+         }, {
+            key: 'referenceRate',
+            name: 'Reference Rate',
+            editor : <AutoCompleteEditor options={referenceRate} />,
             editable: true,
-            width: 80,
             locked: true
-         },
-         {
-            key: 'firstname',
-            name: 'First name',
+         }, {
+            key: 'coreAssets',
+            name: 'Core Assets',
+            editor : <AutoCompleteEditor options={coreAssets} />,
+            editable: true
+         },{
+            key: 'subCategory',
+            name: 'Sub Category',
+            editor : <AutoCompleteEditor options={subCategory} />,
+            editable: true
+         },{
+            key: 'subAssets',
+            name: 'Sub Assets',
+            editor : <AutoCompleteEditor options={subAssets} />,
+            editable: true
+         },{
+            key: 'commoditiesRegion',
+            name: 'Commodities Region',
+            editor : <AutoCompleteEditor options={commoditiesRegion} />,
+            editable: true
+         },{
+            key: 'productGrade',
+            name: 'Product Grade',
+            editor : <AutoCompleteEditor options={productGrade} />,
+            editable: true
+         },{
+            key: 'basis',
+            name: 'Basis',
+            editor : <AutoCompleteEditor options={basis} />,
+            editable: true
+         },{
+            key: 'priceSource',
+            name: 'Price Source',
+            editor : <AutoCompleteEditor options={priceSource} />,
+            editable: true
+         },{
+            key: 'bbgPlattsCodeFutureTicker',
+            name: 'BBG / Platts Code / Futures Ticker',
+            editor : <AutoCompleteEditor options={bbgPlattsCodeFutureTicker} />,
+            editable: true
+         }, {
+            key: 'oTC',
+            name: 'OTC',
+            editor : <AutoCompleteEditor options={exchange} />,
+            editable: true
+         }, {
+            key: 'exchange',
+            name: 'Exchange',
+            editor : <AutoCompleteEditor options={exchange} />,
+            editable: true
+         }, {
+            key: 'exchangePlatform',
+            name: 'Exchange Platform',
+            editor : <AutoCompleteEditor options={exchangePlatform} />,
+            editable: true
+         }, {
+            key: 'exchangeSymbol',
+            name: 'Exchange Symbol',
+            editor : <AutoCompleteEditor options={exchangeSymbol} />,
+            editable: true
+         }, {
+            key: 'maxTenor',
+            name: 'Max Tenor',
+            editor : <AutoCompleteEditor options={maxTenor} />,
+            editable: true
+         },{
+            key: 'openRisk',
+            name: 'Open Risk',
+            editor : <AutoCompleteEditor options={openRisk} />,
+            editable: true
+         }, {
+            key: 'openRiskMaxTenor',
+            name: 'Open Risk Max Tenor',
+            editor : <AutoCompleteEditor options={openRiskMaxTenor} />,
+            editable: true
+         }, {
+            key: 'tradeSettlementCash',
+            name: 'Trade Settlement Cash',
+            editor : <AutoCompleteEditor options={tradeSettlementCash} />,
+            editable: true
+         }, {
+            key: 'tradeSettlementPhysical',
+            name: 'Trade Settlement Physical',
+            editor: <AutoCompleteEditor options={tradeSettlementPhysical} />,
+            editable: true
+         }, {
+            key: 'underlyingStatus',
+            name: 'Underlying Status',
+            editor : <AutoCompleteEditor options={underlyingStatus} />,
             editable: true,
-            width: 80
-         },
-         {
-            key: 'lastname',
-            name: 'Last name',
-            editable: true,
-            width: 80
-         },
-         {
-            key: 'a',
-            name: 'Apple',
-            editable: true,
-            width: 80
-         },
-         {
-            key: 'b',
-            name: 'Ball',
-            editable: true,
-            width: 80
-         },
-         {
-            key: 'c',
-            name: 'Cat',
-            editable: true,
-            width: 80
-         },
-         {
-            key: 'd',
-            name: 'Dog',
-            editable: true,
-            width: 80
-         },
-         {
-            key: 'priority',
-            name: 'Priority',
-            editor: PrioritiesEditor
-         },
-         {
-            key: 'issueType',
-            name: 'Issue Type',
-            editor: IssueTypesEditor,
-            formatter: IssueTypesFormatter
+         }, {
+            key: 'underlyingStatusChangeDate',
+            name: 'Underlying Status Change Date'
          }
       ];
 
@@ -204,7 +263,7 @@ var CommoditiesFeatures= React.createClass({
          <div className="container">
             <div className="row">
                <ReactDataGrid
-                  ref="grid"
+                  //ref="grid"
                   enableCellSelect={true}
                   columns={this._columns}
                   rowGetter={this.rowGetter}
@@ -215,10 +274,10 @@ var CommoditiesFeatures= React.createClass({
                   rowsCount={this.getSize()}
                   onGridRowsUpdated={this.handleGridRowsUpdated}
                   toolbar={<Toolbar onAddRow={this.handleAddRow}/>}*/
-                  //enableRowSelect={true}
+                  enableRowSelect={true}
                   minHeight={500}
-                  minWidth={600}
-                  rowScrollTimeout={200}
+                  maxWidth={1070}
+                  //rowScrollTimeout={200}
                />
             </div>
          </div>
