@@ -6,26 +6,8 @@ import React from "react";
 import ReactDataGrid from "react-data-grid";
 import {Editors, Toolbar, Formatters} from "react-data-grid-addons";
 import * as apidata from "./../api/api_form.jsx";
-
-const { AutoComplete: AutoCompleteEditor, DropDownEditor } = Editors;
-const { DropDownFormatter } = Formatters;
-
-// options for priorities autocomplete editor
-const priorities = [{ id: 0, title: 'Critical' }, { id: 1, title: 'High' }, { id: 2, title: 'Medium' }, { id: 3, title: 'Low'} ];
-const PrioritiesEditor = <AutoCompleteEditor options={priorities} />;
-
-// options for IssueType dropdown editor
-// these can either be an array of strings, or an object that matches the schema below.
-const issueTypes = [
-   { id: 'bug', value: 'bug', text: 'Bug', title: 'Bug' },
-   { id: 'improvement', value: 'improvement', text: 'Improvement', title: 'Improvement' },
-   { id: 'epic', value: 'epic', text: 'Epic', title: 'Epic' },
-   { id: 'story', value: 'story', text: 'Story', title: 'Story' }
-];
-
-const IssueTypesEditor = <DropDownEditor options={issueTypes}/>;
-
-const IssueTypesFormatter = <DropDownFormatter options={issueTypes}/>;
+const { AutoComplete: AutoCompleteEditor } = Editors;
+//const { DropDownFormatter } = Formatters;
 
 var CommoditiesFeatures= React.createClass({
 
@@ -43,8 +25,10 @@ var CommoditiesFeatures= React.createClass({
       }
       return formatted;
    },
+
    getInitialState() {
 
+      let balanceSheet = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.BALANCE_SHEET));
       let ccy1 = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.APD_CURRENCY));
       let referenceRate = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.REFERENCE_RATE));
       let exchange = this.formatRefDataForGrid(this.getRefDataValueForKey(apidata.EXCHANGE));
@@ -69,148 +53,151 @@ var CommoditiesFeatures= React.createClass({
 
       this._columns = [
          {
-            key: 'id',
-            name: 'ID',
-            width: 30,
-            locked: true
-         }, {
             key: 'Currency1',
-            name: 'Ccy1',
+            name: 'CCY1',
             editor : <AutoCompleteEditor options={ccy1} />,
             editable: true,
+            width: 60,
             locked: true
          }, {
             key: 'referenceRate',
             name: 'Reference Rate',
             editor : <AutoCompleteEditor options={referenceRate} />,
             editable: true,
-            locked: true
+            width: 120
          }, {
             key: 'coreAssets',
             name: 'Core Assets',
             editor : <AutoCompleteEditor options={coreAssets} />,
-            editable: true
+            editable: true,
+            width: 100
          },{
             key: 'subCategory',
             name: 'Sub Category',
             editor : <AutoCompleteEditor options={subCategory} />,
-            editable: true
+            editable: true,
+            width: 110
          },{
             key: 'subAssets',
             name: 'Sub Assets',
             editor : <AutoCompleteEditor options={subAssets} />,
-            editable: true
+            editable: true,
+            width: 90
          },{
             key: 'commoditiesRegion',
             name: 'Commodities Region',
             editor : <AutoCompleteEditor options={commoditiesRegion} />,
-            editable: true
+            editable: true,
+            width: 160
          },{
             key: 'productGrade',
             name: 'Product Grade',
             editor : <AutoCompleteEditor options={productGrade} />,
-            editable: true
+            editable: true,
+            width: 110
          },{
             key: 'basis',
             name: 'Basis',
             editor : <AutoCompleteEditor options={basis} />,
-            editable: true
+            editable: true,
+            width: 70
          },{
             key: 'priceSource',
             name: 'Price Source',
             editor : <AutoCompleteEditor options={priceSource} />,
-            editable: true
+            editable: true,
+            width: 110
          },{
             key: 'bbgPlattsCodeFutureTicker',
             name: 'BBG / Platts Code / Futures Ticker',
             editor : <AutoCompleteEditor options={bbgPlattsCodeFutureTicker} />,
-            editable: true
+            editable: true,
+            width: 220
          }, {
             key: 'oTC',
             name: 'OTC',
             editor : <AutoCompleteEditor options={exchange} />,
-            editable: true
+            editable: true,
+            width: 50
          }, {
             key: 'exchange',
             name: 'Exchange',
             editor : <AutoCompleteEditor options={exchange} />,
-            editable: true
+            editable: true,
+            width: 80
          }, {
             key: 'exchangePlatform',
             name: 'Exchange Platform',
             editor : <AutoCompleteEditor options={exchangePlatform} />,
-            editable: true
+            editable: true,
+            width: 140
          }, {
             key: 'exchangeSymbol',
             name: 'Exchange Symbol',
             editor : <AutoCompleteEditor options={exchangeSymbol} />,
-            editable: true
+            editable: true,
+            width: 140
          }, {
             key: 'maxTenor',
             name: 'Max Tenor',
             editor : <AutoCompleteEditor options={maxTenor} />,
-            editable: true
+            editable: true,
+            width: 100
          },{
             key: 'openRisk',
             name: 'Open Risk',
             editor : <AutoCompleteEditor options={openRisk} />,
-            editable: true
+            editable: true,
+            width: 100
          }, {
             key: 'openRiskMaxTenor',
             name: 'Open Risk Max Tenor',
             editor : <AutoCompleteEditor options={openRiskMaxTenor} />,
-            editable: true
+            editable: true,
+            width: 160
          }, {
             key: 'tradeSettlementCash',
             name: 'Trade Settlement Cash',
             editor : <AutoCompleteEditor options={tradeSettlementCash} />,
-            editable: true
+            editable: true,
+            width: 180
          }, {
             key: 'tradeSettlementPhysical',
             name: 'Trade Settlement Physical',
             editor: <AutoCompleteEditor options={tradeSettlementPhysical} />,
+            editable: true,
+            width: 180
+         }, {
+            key: 'balanceSheet',
+            name: 'Balance\n Sheet',
+            width: 120,
+            editor : <AutoCompleteEditor options={balanceSheet} />,
             editable: true
          }, {
             key: 'underlyingStatus',
             name: 'Underlying Status',
             editor : <AutoCompleteEditor options={underlyingStatus} />,
             editable: true,
+            width: 160
          }, {
             key: 'underlyingStatusChangeDate',
-            name: 'Underlying Status Change Date'
+            name: 'Underlying Status Change Date',
+            width: 160
          }
       ];
 
       return { rows: this.createRows(150) };
-      //return null;
    },
    createRows(numberOfRows) {
       let rows = [];
       _.forEach(this.props.gridRows, (eachRow) => {
-            let eachObj = {};
-            _.forEach(this._columns, (eachKey) => {
-                  eachObj[eachKey.key] = eachRow[eachKey.key];
-            });
-           
-            rows.push(eachObj)
-      })   
-        console.log(rows)
-     /* for (let i = 1; i < numberOfRows; i++) {
-         rows.push({
-            id: i,
-            task: 'Task ' + i,
-            name: 'NAME ' + i,
-            firstname: 'First name ' + i,
-            lastname: 'Last nam ' + i,
-            a: 'Apple ' + i,
-            b: 'Ball ' + i,
-            c: 'Cat ' + i,
-            d: 'Dog' + i,
-            priority: ['Critical', 'High', 'Medium', 'Low'][Math.floor((Math.random() * 3) + 1)],
-            issueType: ['Bug', 'Improvement', 'Epic', 'Story'][Math.floor((Math.random() * 3) + 1)],
+         let eachObj = {};
+         _.forEach(this._columns, (eachKey) => {
+            eachObj[eachKey.key] = eachRow[eachKey.key];
          });
-      }*/
 
+         rows.push(eachObj)
+      })
       return rows;
    },
 
@@ -268,15 +255,18 @@ var CommoditiesFeatures= React.createClass({
       const rows = React.addons.update(this.state.rows, {$push: [newRow]});
       this.setState({ rows });
    },
+   handleDeleteRow(){
+      console.log("delete row functionality here");
+   },
    render() {
-       
+
       return (
          <div className="container">
             <div className="row">
                <ReactDataGrid
                   //ref="grid"
                   enableCellSelect={true}
-                 // columns={this._columns}
+                  // columns={this._columns}
                   rowGetter={this.rowGetter}
                   rowsCount={this.state.rows.length}
                   onRowUpdated={this.handleRowUpdated}
@@ -284,7 +274,8 @@ var CommoditiesFeatures= React.createClass({
                   rowGetter={this.getRowAt}
                   rowsCount={this.getSize()}
                   onGridRowsUpdated={this.handleGridRowsUpdated}
-                  toolbar={<Toolbar onAddRow={this.handleAddRow}/>}
+                  toolbar={<Toolbar title="Add Row" onAddRow={this.handleAddRow}/>}
+                  //toolbar={<Toolbar title="Delete Row" onDeleteRow={this.handleDeleteRow}/>}
                   enableRowSelect={true}
                   minHeight={500}
                   maxWidth={700}
@@ -292,8 +283,8 @@ var CommoditiesFeatures= React.createClass({
                />
             </div>
          </div>
-         );
-      }
+      );
+   }
 });
 
 export default CommoditiesFeatures;
