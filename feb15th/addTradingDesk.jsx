@@ -94,8 +94,6 @@ var AddTradingDesk = React.createClass({
       }
    },
    getDeskName(){
-      //console.log("addTradingDesk.jsx::getDeskName::selectDesk", this.props.selectDesk);
-      //console.log("addTradingDesk.jsx::getDeskName::selectDesk", this.props.deskName);
       if(this.props.selectDesk) {
          for (let i = 0; i < this.props.selectDesk.length; i++) {
             if (this.props.selectDesk[i].refDataValue === this.props.deskName) {
@@ -130,27 +128,35 @@ var AddTradingDesk = React.createClass({
       //this.forceUpdate();
    },
    addNewBankEntity(e) {
-      //console.log("Print --- ", e);
       let objID = (e.target.id).split("_")[1];
       // bankentity_0
       let bankEntity = '';
+      let region = '';
       let bankEntityDropdown = document.getElementById('bankentity_' + objID).value;
-      if (bankEntityDropdown) {
-         //  let BankEntityArray = this.state.tradingDesk[objID].bankEntities;
+      let regionDropdown = document.getElementById('region_' + objID).value;
+
+      if(bankEntityDropdown && regionDropdown) {
          let BankEntityArray = this.props.trading.bankEntities;
-         let heritage = this.getRefDataValueForKey(apidata.APPROVED_HERITAGE, this.props.refData.refDataKeyGroups);
+
+         let heritage = this.getRefDataValueForKey(apidata.BANK_ENTITY, this.props.refData.refDataKeyGroups);
          for (var i = 0; i < heritage.length; i++) {
             if (bankEntityDropdown === heritage[i].refDataValue) {
                bankEntity = heritage[i].refDataValue;
             }
          }
+         let regionRefData = this.getRefDataValueForKey(apidata.REGION, this.props.refData.refDataKeyGroups);
+         for (var r = 0; r < regionRefData.length; r++) {
+            if (regionDropdown === regionRefData[r].refDataValue) {
+               region = regionRefData[r].refDataValue;
+            }
+         }
+
          let validBank = true;
          for (let j = 0; j < BankEntityArray.length; j++) {
             if (validBank) {
-               if (BankEntityArray[j].bankEntityName === bankEntity) {
+               if (BankEntityArray[j].bankEntityName === bankEntity && BankEntityArray[j].region === region) {
                   validBank = false;
-                  //console.log("in valid bank entity");
-                  alert("The Trading Desk must only be assigned one instance of the Bank Entity. The same entity cannot be assigned to a Trading Desk more than one.");
+                  alert("The Trading Desk must only be assigned one instance of the Bank Entity & region. The same entity & region cannot be assigned to a Trading Desk more than one.");
                   return false;
                } else {
                   validBank = true
@@ -164,13 +170,17 @@ var AddTradingDesk = React.createClass({
                   "bankEntityCurrencies": [],
                   "bankEntityId": "",
                   "bankEntityName": bankEntity,
+                  "region": region,
                   bankEntityStatus: ""
                }
                //'bankName': bankEntity, 'bankEntityCurrencies':[]}
             );
             this.forceUpdate();
          }
-      } else { console.log("Am here add bank entity"); return false; }
+      } else {
+         alert("Please select both Bank entity & the Region");
+         return false;
+      }
    },
    deleteBankEntity(bankKey) {
       let keyBankEntity = bankKey.split("_");
@@ -195,12 +205,8 @@ var AddTradingDesk = React.createClass({
    },
 
    handleMultiSelectChange(name, selectedValue, e){
-      console.log("addTradingDesk.jsx::.handleMultiSelectChange: name", name);
-      console.log("addTradingDesk.jsx::.handleMultiSelectChange: selectedValue", selectedValue);
       var trading = this.state.trading;
       trading[name] = this.transformReactSelectValues(selectedValue);
-      console.log("addTradingDesk.jsx::.handleMultiSelectChange: trading", trading);
-      console.log("addTradingDesk.jsx::.handleMultiSelectChange: trading[name]", trading[name]);
       this.setState(trading);
    },
    transformReactSelectValues(selectedValues) {
@@ -239,11 +245,12 @@ var AddTradingDesk = React.createClass({
 
       let remainingClientSegments = false;
       if(internalTradesOnly) {
+         alert("Data within the Distribution Channels section will be lost. Are you sure you want to select Internal Only?");
          //console.log("internalTradesOnly", internalTradesOnly)
          /*console.log("internalTradesOnly", internalTradesOnly)
          var checkboxes = new Array();
-         //checkboxes = document.getElementsByTagName('input');
-         checkboxes = document.getElementsByClassName('clearValue');
+         checkboxes = document.getElementsByTagName('input');
+         //checkboxes = document.getElementsByClassName('clearValue');
          console.log("clearValue", document.getElementsByClassName('clearValue'));
          console.log("checkboxes", checkboxes);
          for (var i=0; i<checkboxes.length; i++) {
