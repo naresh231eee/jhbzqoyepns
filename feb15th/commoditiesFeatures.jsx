@@ -8,6 +8,7 @@ import {Editors, Toolbar, Formatters} from "react-data-grid-addons";
 import * as apidata from "./../api/api_form.jsx";
 const { AutoComplete: AutoCompleteEditor } = Editors;
 //const { DropDownFormatter } = Formatters;
+import update from 'react-addons-update';
 
 var CommoditiesFeatures= React.createClass({
 
@@ -66,49 +67,49 @@ var CommoditiesFeatures= React.createClass({
             editable: true,
             width: 120
          }, {
-            key: 'coreAssets',
+            key: 'Core Assets',
             name: 'Core Assets',
             editor : <AutoCompleteEditor options={coreAssets} />,
             editable: true,
             width: 100
          },{
-            key: 'subCategory',
+            key: 'Sub Category',
             name: 'Sub Category',
             editor : <AutoCompleteEditor options={subCategory} />,
             editable: true,
             width: 110
          },{
-            key: 'subAssets',
+            key: 'Sub Assets',
             name: 'Sub Assets',
             editor : <AutoCompleteEditor options={subAssets} />,
             editable: true,
             width: 90
          },{
-            key: 'commoditiesRegion',
+            key: 'Commodities Region',
             name: 'Commodities Region',
             editor : <AutoCompleteEditor options={commoditiesRegion} />,
             editable: true,
             width: 160
          },{
-            key: 'productGrade',
+            key: 'Product Grade',
             name: 'Product Grade',
             editor : <AutoCompleteEditor options={productGrade} />,
             editable: true,
             width: 110
          },{
-            key: 'basis',
+            key: 'Basis',
             name: 'Basis',
             editor : <AutoCompleteEditor options={basis} />,
             editable: true,
             width: 70
          },{
-            key: 'priceSource',
+            key: 'Price Source',
             name: 'Price Source',
             editor : <AutoCompleteEditor options={priceSource} />,
             editable: true,
             width: 110
          },{
-            key: 'bbgPlattsCodeFutureTicker',
+            key: 'BBG / Platts Code / Futures Ticker',
             name: 'BBG / Platts Code / Futures Ticker',
             editor : <AutoCompleteEditor options={bbgPlattsCodeFutureTicker} />,
             editable: true,
@@ -169,7 +170,7 @@ var CommoditiesFeatures= React.createClass({
             width: 180
          }, {
             key: 'balanceSheet',
-            name: 'Balance\n Sheet',
+            name: 'Balance Sheet',
             width: 120,
             editor : <AutoCompleteEditor options={balanceSheet} />,
             editable: true
@@ -188,14 +189,19 @@ var CommoditiesFeatures= React.createClass({
 
       return { rows: this.createRows(150) };
    },
+
    createRows(numberOfRows) {
       let rows = [];
       _.forEach(this.props.gridRows, (eachRow) => {
          let eachObj = {};
          _.forEach(this._columns, (eachKey) => {
-            eachObj[eachKey.key] = eachRow[eachKey.key];
+            let currencyFeature = _.find(eachRow.bankEntityCurrencyFeatures,{attrName: eachKey.name});
+            if(currencyFeature){
+               eachObj[eachKey.key] =  currencyFeature.attrValue;
+            } else {
+               eachObj[eachKey.key] = eachRow[eachKey.key];
+            }
          });
-
          rows.push(eachObj)
       })
       return rows;
@@ -244,7 +250,9 @@ var CommoditiesFeatures= React.createClass({
    getSize() {
       return this.state.rows.length;
    },
+
    handleAddRow({ newRowIndex }) {
+      const gridRows = this.state.rows;
       const newRow = {
          value: newRowIndex,
          userStory: '',
@@ -252,14 +260,15 @@ var CommoditiesFeatures= React.createClass({
          epic: ''
       };
 
-      const rows = React.addons.update(this.state.rows, {$push: [newRow]});
+      const rows = update(gridRows, {$push: [newRow]});
       this.setState({ rows });
    },
+
    handleDeleteRow(){
       console.log("delete row functionality here");
    },
    render() {
-
+      //console.log("gridRows", this.props.gridRows);
       return (
          <div className="container">
             <div className="row">
@@ -276,7 +285,7 @@ var CommoditiesFeatures= React.createClass({
                   onGridRowsUpdated={this.handleGridRowsUpdated}
                   toolbar={<Toolbar title="Add Row" onAddRow={this.handleAddRow}/>}
                   //toolbar={<Toolbar title="Delete Row" onDeleteRow={this.handleDeleteRow}/>}
-                  enableRowSelect={true}
+                  //enableRowSelect={true}
                   minHeight={500}
                   maxWidth={700}
                   //rowScrollTimeout={200}
