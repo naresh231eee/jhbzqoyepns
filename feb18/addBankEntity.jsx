@@ -1,10 +1,10 @@
 import React from "react";
 import AddBankEntityRow from "./addBankEntityRow.jsx";
 import Commodities from "./commoditiesFeatures.jsx";
-// import Credit from "./creditFeatures.jsx";
-// import Rates from "./ratesFeatures.jsx";
-// import MMAndRepo from "./mmAndRepoFeatures.jsx";
-// import FX from "./fxFeatures.jsx";
+import Credit from "./creditFeatures.jsx";
+import Rates from "./ratesFeatures.jsx";
+import MMAndRepo from "./mmAndRepoFeatures.jsx";
+import FX from "./fxFeatures.jsx";
 import SelectBox from "./../formfields/select.js";
 import CheckBox from "./../formfields/checkbox.js";
 import * as apidata from "./../api/api_form.jsx";
@@ -126,11 +126,10 @@ var NewBankEntity= React.createClass({
    updateBankEntity(tradingDeskId, bankEntityId, rowId, rowData){
         console.log(tradingDeskId + ' ^^ '+ this.props.tradingIndex )
         console.log(bankEntityId + '----' + this.props.bankentityIndex)
-        console.log(rowId)
-        console.log(rowData);
+        console.log("rowId", rowId)
+        console.log("rowData", rowData);
         this.props.bankEntityResult.bankEntityCurrencies=rowData;
-        console.log("---------This row data is displaying");
-        console.log(this.props.bankEntityResult);
+        console.log("---------This row data is displaying", this.props.bankEntityResult);
         console.log("--------->>>>>>done");
         this.setState({bankEntities: rowData});
        // this.props.updateEntity(tradingDeskId, bankEntityId, rowId, rowData);
@@ -142,7 +141,7 @@ var NewBankEntity= React.createClass({
       }
       let underlyingStatus = this.getRefDataValueForKey(apidata.UNDERLYING_STATUS);
       var anyCcyPairAllowed = this.state.anyCcyPairAllowed=='Y' ? true:false;
-
+      let gridRowsLength = this.state.bankEntityRows.bankEntityCurrencies.length;
       return (
          <div className="wrapper">
             <div className="row padding-top-bottom">
@@ -187,37 +186,39 @@ var NewBankEntity= React.createClass({
                   <div className="form-group">
                      <label></label>
                      <button className="btn btn-default" type="button" onClick={this.removeBankEntity}
-                             id={'bankEntity_'+this.props.tradingIndex+'_'+this.props.bankentityIndex} disabled={this.props.disableFormFields}>Remove Bank Entity
+                             id={'bankEntity_'+this.props.tradingIndex+'_'+this.props.bankentityIndex} disabled={this.props.disableFormFields}>Remove Bank Entity - Region
                      </button>
                   </div>
                </div>
             </div>
             <div className="clear"></div>
-            {/*<div className="row">
+            { /*<div className="row">
                <div className="col-lg-2 col-md-2 col-sm-2"></div>
                <div className="col-lg-4 col-md-4 col-sm-4 pull-right padding-left-90">
                   <input type="button" className="btn btn-primary margin-right-10" value="Add new Row" onClick={this.addNewRow} disabled={this.props.disableFormFields} />
                   <input type="button" className="btn btn-default margin-right-10" value="Delete Rows" disabled={this.props.disableFormFields}
                          id={'deleterow_'+this.props.tradingIndex+'_'+this.props.bankentityIndex} onClick={this.deleteRowHandler}  />
                </div>
-            </div> */}
+            </div>*/}
             <div className="clear"></div>
             { this.state.productType == "Commodities" &&
                <Commodities gridRows={this.state.bankEntityRows.bankEntityCurrencies}
-                            refData={this.props.refData} updateEntity={this.updateBankEntity} 
-                            tradingIndex={this.props.tradingIndex}
-                            bankEntityIndex={this.props.bankentityIndex}
-                             
-               />
-            }
-            { /*this.state.productType == "Credit" &&
-               <Credit gridRows={this.state.bankEntityRows.bankEntityCurrencies}
-                       refData={this.props.refData}
+                            refData={this.props.refData} updateEntity={this.updateBankEntity}
+                            tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
+                            gridRowsLength={gridRowsLength}
+
                />
             }
             { (this.state.productType == "Money Markets" || this.props.productType == "Repo") &&
                <MMAndRepo gridRows={this.state.bankEntityRows.bankEntityCurrencies}
-                          refData={this.props.refData}
+                       refData={this.props.refData} updateEntity={this.updateBankEntity}
+                       tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
+                       gridRowsLength={gridRowsLength}
+               />
+            }
+            { this.state.productType == "Credit" &&
+               <Credit gridRows={this.state.bankEntityRows.bankEntityCurrencies}
+                       refData={this.props.refData}
                />
             }
             { this.state.productType == "Rates" &&
@@ -229,7 +230,7 @@ var NewBankEntity= React.createClass({
                <FX gridRows={this.state.bankEntityRows.bankEntityCurrencies}
                    refData={this.props.refData}
                />
-           */ }
+            }
 
          </div>
 
