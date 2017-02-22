@@ -7,6 +7,23 @@ import * as apidata from "./../api/api_form.jsx";
 import MultiSelect from "./../formfields/multiselect.js";
 import * as util from "./../util/util.js";
 
+
+var internalTradesOnly;
+var interbankMarketHedging;
+var financialInstitutions;
+var globalCorporates;
+var midMarkets;
+var sME;
+var sMESegment;
+var wealth;
+var retailBusinessBanking;
+var retail;
+var externalGCT;
+var externalClient;
+var moneyMarketLA;
+var attrMap;
+var deskAttributes;
+
 var AddTradingDesk = React.createClass({
    getInitialState: function () {
       return this.getStateFromProps(this.props);
@@ -223,7 +240,17 @@ var AddTradingDesk = React.createClass({
       }
       return [];
    },
-    
+   changeInternals(e){
+       if(confirm("Data within the Distribution Channels section will be lost. Are you sure you want to select Internal Only?")){    
+        var currentTrading = this.refs.Internal_Only.classList.value
+        console.log(this.refs.Internal_Only.checked);
+        var currentTradingIndex = currentTrading.split("_")[1];
+        this.props.enableDisableExternal(currentTradingIndex, this.refs.Internal_Only.checked);
+        internalTradesOnly = true; 
+       } else {
+               this.refs.Internal_Only.checked = false;
+       }
+   }, 
    render() {
       //Trading Desk
       let approvedHeritage = this.getRefDataValueForKey(apidata.BANK_ENTITY);
@@ -234,18 +261,18 @@ var AddTradingDesk = React.createClass({
       console.log("this.state.primaryDesk");
       console.log(this.state.primaryDesk);
       var primaryDesk = this.state.primaryDesk==='Y' ? true:false;
-      var internalTradesOnly = this.state.internalTradesOnly=='Y' ? true:false;
-      var interbankMarketHedging = this.state.interbankMarketHedging=='Y' ? true:false;
-      var financialInstitutions = this.state.financialInstitutions=='Y' ? true:false;
-      var globalCorporates = this.state.globalCorporates=='Y' ? true:false;
-      var midMarkets = this.state.midMarkets=='Y' ? true:false;
-      var sME = this.state.sME=='Y' ? true:false;
-      var wealth = this.state.wealth=='Y' ? true:false;
-      var retailBusinessBanking = this.state.retailBusinessBanking=='Y' ? true:false;
-      var retail = this.state.retail=='Y' ? true:false;
-      var externalGCT = this.state.externalGCT=='Y' ? true:false;
-      //var externalClient = this.state.externalClient=='Y' ? true:false;
-      var moneyMarketLA = this.state.moneyMarketLA=='Y' ? true:false;
+         internalTradesOnly =   this.state.internalTradesOnly=='Y' ? true:  false;
+          interbankMarketHedging = this.state.interbankMarketHedging=='Y' ? true:false;
+          financialInstitutions = this.state.financialInstitutions=='Y' ? true:false;
+          globalCorporates = this.state.globalCorporates=='Y' ? true:false;
+          midMarkets = this.state.midMarkets=='Y' ? true:false;
+          sME = this.state.sME=='Y' ? true:false;
+          wealth = this.state.wealth=='Y' ? true:false;
+          retailBusinessBanking = this.state.retailBusinessBanking=='Y' ? true:false;
+          retail = this.state.retail=='Y' ? true:false;
+          externalGCT = this.state.externalGCT=='Y' ? true:false;
+        //var externalClient = this.state.externalClient=='Y' ? true:false;
+          moneyMarketLA = this.state.moneyMarketLA=='Y' ? true:false;
 
       var MIFIDClassification = this.getRefDataValueForKey(apidata.MIFID_CLASS);
 
@@ -253,18 +280,31 @@ var AddTradingDesk = React.createClass({
 
         console.log(apidata.REGION);
         console.log(util.getKeyByValues(apidata.REGION));
-        
-      if(internalTradesOnly) {
-         alert("Data within the Distribution Channels section will be lost. Are you sure you want to select Internal Only?");
+        console.log("internalTradesOnly");
+        console.log(internalTradesOnly);
+        if(internalTradesOnly){
+                var interbankMarketHedging = false;
+                var financialInstitutions = false;
+                var globalCorporates = false;
+                var midMarkets = false;
+                var sME = false;
+                var wealth = false;
+                var retailBusinessBanking = false;
+                var retail = false;
+                var externalGCT =  false;
+                var externalClient = false;
+                var moneyMarketLA = false;
+        }
+      /*if(internalTradesOnly) {
+        // alert("Data within the Distribution Channels section will be lost. Are you sure you want to select Internal Only?");
          //console.log("internalTradesOnly", internalTradesOnly)
-         /*console.log("internalTradesOnly", internalTradesOnly)
+         console.log("internalTradesOnly", internalTradesOnly)
          var checkboxes = new Array();
-         checkboxes = document.getElementsByTagName('input');
-         //checkboxes = document.getElementsByClassName('clearValue');
-         console.log("clearValue", document.getElementsByClassName('clearValue'));
+        //  checkboxes = document.getElementsByTagName('input');
+         checkboxes = document.getElementsByClassName('externalChannels');
+         console.log("externalChannels", document.getElementsByClassName('externalChannels'));
          console.log("checkboxes", checkboxes);
          for (var i=0; i<checkboxes.length; i++) {
-            console.log("checkboxes[i].className", checkboxes[i].className);
             if (checkboxes[i].type == 'checkbox') {
                var trading = this.state.trading;
                var id = checkboxes[i].id;
@@ -275,9 +315,9 @@ var AddTradingDesk = React.createClass({
                console.log("trading[column]", trading[column]);
                this.setState(trading);
             }
-         }*/
+         }
          remainingClientSegments = true;
-      }
+      }*/
 
       return (
          <div className="list-group-item product-containers" data-id={this.props.tradingIndex} onClick={this.toggleTradingDesks}> {this.getDeskName()}
@@ -302,8 +342,7 @@ var AddTradingDesk = React.createClass({
                         />
                      </div>
                      <label class="checkbox-inline" htmlFor="primaryDesk">
-                        <CheckBox   name="primaryDesk"
-                                  
+                        <CheckBox   name="primaryDesk"                                  
                                   value={this.state.primaryDesk}
                                   disabled={this.props.disableFormFields}
                                   sid={'primaryDesk_'+this.props.tradingIndex}
@@ -311,13 +350,14 @@ var AddTradingDesk = React.createClass({
                         />Primary Desk
                      </label>
                      <label class="checkbox-inline" htmlFor="internalTradesOnly">
-                        <CheckBox key={Math.random()} name="internalTradesOnly"
-                                  type="checkbox"
-                                  checked={internalTradesOnly}
-                                  disabled={this.props.disableFormFields}
-                                  sid={'internalTradesOnly_'+this.props.tradingIndex}
-                                  onChange={this.handleCheckboxChange}
-                        />Internal Only
+                              <input type="checkbox"
+                                name="internalTradesOnly"
+                                
+                                onChange={this.changeInternals} 
+                                id={'internalTradesOnly_'+this.props.tradingIndex} 
+                                value={this.state.text}
+                                ref="Internal_Only" className={'internalTradesOnly_'+this.props.tradingIndex}
+                                /> Internal Only
                      </label>
                      <div className="col-lg-1 col-md-1 col-sm-1">
                         <label htmlFor="deskStatus">Desk Status</label>
@@ -338,61 +378,78 @@ var AddTradingDesk = React.createClass({
                   <div className="row-fluid segment">
                      <h3>Distribution Channels - External</h3>
                      <div className="container-fluid form-inline">
-                        <label htmlFor="interbankMarketHedging">
-                           <CheckBox name="interbankMarketHedging"
-                                     checked={interbankMarketHedging}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'interbankMarketHedging_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />
+                        <label htmlFor="interbankMarketHedging">                         
+                           <input type="checkbox"
+                                name="interbankMarketHedging"
+                                 
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'interbankMarketHedging_'+this.props.tradingIndex} 
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />
                            Interbank Market Hedging
                         </label>
-                        <label htmlFor="externalGCT">
-                           <CheckBox name="externalGCT" checked={externalGCT}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'externalGCT_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />External GCT
+                        <label htmlFor="externalGCT"> 
+                           <input type="checkbox"
+                                name="externalGCT"
+                                
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'externalGCT_'+this.props.tradingIndex} 
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />
+                           External GCT
                         </label>
-                        <label htmlFor="financialInstitutions">
-                           <CheckBox name="financialInstitutions"
-                                     checked={financialInstitutions}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'financialInstitutions_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />FI
+                        <label htmlFor="financialInstitutions"> 
+                           <input type="checkbox"
+                                name="financialInstitutions"
+                                
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'financialInstitutions_'+this.props.tradingIndex}
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />
+                           FI
                         </label>
                         <label htmlFor="globalCorporates">
-                           <CheckBox name="globalCorporates"
-                                     checked={globalCorporates}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'globalCorporates_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />GC
+                                <input type="checkbox"
+                                name="globalCorporates"
+                                 
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'globalCorporates_'+this.props.tradingIndex}
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />GC
                         </label>
                         <label htmlFor="midMarkets">
-                           <CheckBox name="midMarkets"
-                                     checked={midMarkets}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'midMarkets_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />MM
+                                <input type="checkbox"
+                                name="midMarkets"
+                                 
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'midMarkets_'+this.props.tradingIndex}
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />MM
                         </label>
                         <label htmlFor="moneyMarketLA">
-                           <CheckBox name="moneyMarketLA"
-                                     checked={moneyMarketLA}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'moneyMarketLA_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />MM (LA)
+                                <input type="checkbox"
+                                name="moneyMarketLA"
+                                 
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'moneyMarketLA_'+this.props.tradingIndex}
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />MM (LA)
                         </label>
                         <label htmlFor="sME">
-                           <CheckBox name="sME"
-                                     checked={sME}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'sME_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />SME
+                                <input type="checkbox"
+                                name="sME"
+                                
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'sME_'+this.props.tradingIndex}
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />SME
                         </label>
                         <SelectBox className="smeStyles" data={sMESegment}
                                    selected={this.state.sMESegment}
@@ -404,26 +461,34 @@ var AddTradingDesk = React.createClass({
                                    disabled={this.props.disableFormFields || remainingClientSegments}
                         />
                         <label htmlFor="wealth">
-                           <CheckBox name="wealth"
-                                     checked={wealth}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'wealth_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />Wealth
+                           <input type="checkbox"
+                                name="wealth"
+                                
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'wealth_'+this.props.tradingIndex}
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />Wealth
                         </label>
                         <label htmlFor="retailBusinessBanking">
-                           <CheckBox name="retailBusinessBanking" checked={retailBusinessBanking}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'retailBusinessBanking_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />RBB
+                           <input type="checkbox"
+                                name="retailBusinessBanking"
+                                
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'retailBusinessBanking_'+this.props.tradingIndex}
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />RBB
                         </label>
                         <label htmlFor="retail">
-                           <CheckBox name="retail" checked={retail}
-                                     disabled={this.props.disableFormFields || remainingClientSegments}
-                                     sid={'retail_'+this.props.tradingIndex}
-                                     onChange={this.handleCheckboxChange}
-                           />Retail
+                          <input type="checkbox"
+                                name="retail"
+                             
+                                onChange={this.handleCheckboxChange} 
+                                disabled={this.props.disableFormFields || remainingClientSegments}
+                                id={'retail_'+this.props.tradingIndex}
+                                className={this.props.tradingIndex+"_external_Channels"}
+                                />Retail
                         </label>
                      </div>
                   </div>

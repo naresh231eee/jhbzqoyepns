@@ -122,6 +122,26 @@ var TradingDesk = React.createClass({
          this.forceUpdate();
       }
    },
+   enableDisableExternal(indexValue, isChecked){
+      console.log(this.state.tradingDesk);
+      var checkboxes = document.getElementsByClassName(indexValue+"_external_Channels");
+      console.log(checkboxes.length);
+
+      for(var i=0; i < checkboxes.length; i++){
+        // console.log(checkboxes[i].name);
+        if(isChecked){
+          this.state.tradingDesk[indexValue][checkboxes[i].name] = "N";
+          checkboxes[i].setAttribute("disabled", "disabled");
+          checkboxes[i].checked = false;
+        } else {
+           checkboxes[i].removeAttribute("disabled");
+        }
+      }
+        this.state.tradingDesk[indexValue].internalTradesOnly = "Y";
+
+        console.log(this.state.tradingDesk);
+        this.forceUpdate();
+   },
    render() {
       let selectDesk = this.getRefDataValueForKey(apidata.TRADING_DESK);
       console.log("tradingDesk.jsx::render::selectDesk", selectDesk);
@@ -181,6 +201,7 @@ var TradingDesk = React.createClass({
                   deleteTrading={this.deleteTrading}
                   productType={this.props.productType}
                   params={this.state.params}
+                  enableDisableExternal = {this.enableDisableExternal}
                />
             )) : ''}
          </div>
