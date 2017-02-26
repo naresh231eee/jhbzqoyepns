@@ -10,6 +10,8 @@ import DiscardModal from "./discardModal.jsx";
 import TradingDesk from "./tradingDesk.jsx";
 import { Link } from "react-router";
 import { ModalContainer, ModalDialog } from "react-modal-dialog";
+import * as util from "./../util/util.js";
+
 import {
       ACTION_EDIT,
       ACTION_CREATE,
@@ -120,14 +122,7 @@ var App = React.createClass({
          }
       },*/
       showHide(e) {
-            var id = 'd' + e.target.dataset.id;
-            if (e.target.dataset.id >= 0) {
-                  if ((document.getElementById(id).classList.value).indexOf("maxHeight") < 0) {
-                        document.getElementById(id).classList = "expandable maxHeight";
-                  } else {
-                        document.getElementById(id).classList = "expandable ";
-                  }
-            }
+            util.showHideDiv('section', e.target.dataset.id)
       },
       getProductDataFromWSAndSetState(url, stateAttributeName) {
 
@@ -408,9 +403,9 @@ var App = React.createClass({
             else
                   var url = 'apd/updateProductRaw?action=' + action + '&userId=' + this.state.username;
 
-            console.log("app.jsx:sendToServer:this.currentUser", this.state.username);
-            console.log("app.jsx:sendToServer:this.formData", JSON.stringify(data));
-            console.log("app.jsx:sendToServer:this.url", url);
+            // console.log("app.jsx:sendToServer:this.currentUser", this.state.username);
+            // console.log("app.jsx:sendToServer:this.formData", JSON.stringify(data));
+            // console.log("app.jsx:sendToServer:this.url", url);
             // Submit form via jQuery/AJAX
 
             /* $.ajax({
@@ -448,7 +443,7 @@ var App = React.createClass({
       },
       redirectToNextPage(action) {
             if (action == ACTION_SUBMIT || action == ACTION_CONFIRM || action == ACTION_REJECT || action == ACTION_CANCEL || action == ACTION_DISCARD) {
-                  console.log("app.jsx:redirectToNextPage:Redirecting to Landing page on action ", action);
+                  // console.log("app.jsx:redirectToNextPage:Redirecting to Landing page on action ", action);
                   //Go to landing page
                   window.location.replace('#/');
             }
@@ -457,7 +452,7 @@ var App = React.createClass({
          console.log("app.jsx:getConfirmationDetails:trading desk objects:", confirmationObject);
       },*/
       getTradingDetails(desksObject) {
-            console.log("app.jsx:getTradingDetails:trading desk objects:", desksObject);
+            // console.log("app.jsx:getTradingDetails:trading desk objects:", desksObject);
             this.tradingDesks = { productTradingDesks: desksObject };
       },
       errorMessagesHide() {
@@ -502,12 +497,13 @@ var App = React.createClass({
                   this.tradingDesks,
                   confirmationData, initiationData
             );
-            console.log("app.jsx:sendToServer:this.formData >>>> this row created.");
-            console.log(data);
+            // console.log("app.jsx:sendToServer:this.formData >>>> this row created.");
+            // console.log(data);
       },
       changeProductType(productType){
+            
             this.state.productDetails.productType = productType;
-            console.log(this.state.productDetails);
+            // console.log(this.state.productDetails);
              this.forceUpdate();
             //this.setState({productDetails.productType:productType })
       },
@@ -532,7 +528,7 @@ var App = React.createClass({
             return (
                   <div className="container-fluid">
                         {this.props.children}
-                        <div className="navbar-fixed-top">
+                        <div className="navbar-fixed-top topDivs">
                               <PrimaryHeader user={this.state.user} />
                               <div className="row secondary-header">
                                     <div className="col-lg-2 col-md-2"></div>
@@ -630,10 +626,10 @@ var App = React.createClass({
                                           {(this.state.tabdata).map((result, index) => (
                                                 <div key={'s' + index}>
                                                       {result.id !== 3 &&
-                                                            <div className="list-group-item product-containers" data-id={result.id}
+                                                            <div className= {result.id === 1 ? 'list-group-item product-containers maxHeight' : 'list-group-item product-containers minHeight'} id={'section_'+result.id} data-id={result.id}
                                                                   onClick={result.id !== 1 ? this.showHide : ''}>
                                                                   {result.id !== 3 ? result.author : ''}
-                                                                  <div className={result.id === 1 ? 'show' : 'expandable '} id={'d' + result.id}>
+                                                                  <div className={result.id === 1 ? ' maxHeight' : 'innerExpandable '}   id={'section-'+result.id}>
                                                                         {result.id === 1 && <ChangeDetails ref={(ref) => this.changeDetails = ref}
                                                                               refData={this.state.formattedRefData} pd={this.state.productDetails} item={result.author}
                                                                               disabled={this.state.disabled} params={this.props.params} isSuccess={this.state.isSuccess} />

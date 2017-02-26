@@ -101,15 +101,8 @@ var AddTradingDesk = React.createClass({
    getRefDataValueForKey: function(key) {
       return this.props.refData.get(key);
    },
-   toggleTradingDesks(e) {
-      if(e.target.dataset.id >= 0 || e.target.dataset.id === "undefined") {
-         var id = 'trading-' + e.target.dataset.id;
-         if ((document.getElementById(id).classList.value).indexOf("maxHeight") < 0) {
-            document.getElementById(id).classList = "expandable maxHeight";
-         } else {
-            document.getElementById(id).classList = "expandable ";
-         }
-      }
+   showHide(e) {
+        util.showHideDiv('trading', e.target.dataset.id);
    },
    getDeskName(){
       if(this.props.selectDesk) {
@@ -320,12 +313,12 @@ var AddTradingDesk = React.createClass({
       }*/
 
       return (
-         <div className="list-group-item product-containers" data-id={this.props.tradingIndex} onClick={this.toggleTradingDesks}> {this.getDeskName()}
+         <div className="list-group-item product-containers minHeight" id={"trading_"+this.props.tradingIndex} ref={"tradingRefs_"+this.props.tradingIndex} data-id={this.props.tradingIndex} onClick={this.showHide}> {this.getDeskName()}
             <button className="btn btn-default margin-left-50" type="button" onClick={this.deleteTrading}
                     id={'delTradingDesk_'+this.props.tradingIndex} disabled={this.props.disableFormFields}>Remove Desk
             </button>
             <div className="clear"></div>
-            <div className='expandable ' id={'trading-'+this.props.tradingIndex}>
+            <div className='innerExpandable' id={'trading-'+this.props.tradingIndex}>
                <div className="container txt-color">
                   <div className="row">
                      <div className="col-lg-1 col-md-1 col-sm-1">
