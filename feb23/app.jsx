@@ -528,7 +528,7 @@ var App = React.createClass({
             return (
                   <div className="container-fluid">
                         {this.props.children}
-                        <div className="navbar-fixed-top topDivs">
+                        <div className="navbar-fixed-top">
                               <PrimaryHeader user={this.state.user} />
                               <div className="row secondary-header">
                                     <div className="col-lg-2 col-md-2"></div>
