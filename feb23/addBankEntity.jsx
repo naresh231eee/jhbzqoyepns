@@ -5,7 +5,7 @@ import Commodities from "./commoditiesFeatures.jsx";
 // import Rates from "./ratesFeatures.jsx";
 import MMAndRepo from "./mmAndRepoFeatures.jsx";
 // import FX from "./fxFeatures.jsx";
-import SelectBox from "./../formfields/select.js";
+import SelectBox from "./../formfields/select.jsx";
 import CheckBox from "./../formfields/checkbox.js";
 import * as apidata from "./../api/api_form.jsx";
 
@@ -27,7 +27,7 @@ var NewBankEntity= React.createClass({
       return {
          "insertRow":false, bankEntityStatus: bankEntityStatus, refData: refData,
          disableFormFields: disableFormFields, bankEntityRows: this.props.bankEntityResult,
-         anyCcyPairAllowed: anyCcyPairAllowed, productType : productType, params : params
+         anyCcyPairAllowed: anyCcyPairAllowed, productType : productType, params : params, renderBankEntitiesRows : false
       };
    },
    componentWillReceiveProps: function (newProps) {
@@ -134,6 +134,9 @@ var NewBankEntity= React.createClass({
         this.setState({bankEntities: rowData});
        // this.props.updateEntity(tradingDeskId, bankEntityId, rowId, rowData);
    },
+   renderBankEntitiesRows(){
+           this.setState({renderBankEntitiesRows: !this.state.renderBankEntitiesRows})
+   },
    render() {
       var bankEntityRow;
       console.log("this.props.productType ------------")
@@ -149,7 +152,7 @@ var NewBankEntity= React.createClass({
             <div className="row padding-top-bottom">
                <div className="col-lg-3 col-md-3 col-sm-3">
                   <div className="form-group  margin-left-25">
-                     <h2 className="">{this.props.bankEntityName} - {this.props.region}</h2>
+                     <h2 className="" onClick={this.renderBankEntitiesRows}>{this.props.bankEntityName} - {this.props.region}</h2>
                   </div>
                </div>
                <div className="col-lg-2 col-md-2 col-sm-2">
@@ -192,7 +195,7 @@ var NewBankEntity= React.createClass({
                      </button>
                   </div>
                </div>
-            </div>
+             
             <div className="clear"></div>
             { /*<div className="row">
                <div className="col-lg-2 col-md-2 col-sm-2"></div>
@@ -203,7 +206,9 @@ var NewBankEntity= React.createClass({
                </div>
             </div>*/}
             <div className="clear"></div>
-            { this.props.productType === "Commodities" &&
+           { this.state.renderBankEntitiesRows &&
+                <div>
+            { this.props.productType === "Commodities" && 
                <Commodities gridRows={this.state.bankEntityRows.bankEntityCurrencies}
                             refData={this.props.refData} updateEntity={this.updateBankEntity}
                             tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
@@ -232,8 +237,9 @@ var NewBankEntity= React.createClass({
                <FX gridRows={this.state.bankEntityRows.bankEntityCurrencies}
                    refData={this.props.refData}
                />*/
-            }
-
+            }</div>
+           }
+</div>
          </div>
 
       );
