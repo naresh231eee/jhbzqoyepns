@@ -4,6 +4,7 @@ import AddTradingDesk from "./addTradingDesk.jsx";
 import * as apidata from "./../api/api_form.jsx";
 import SelectBox from "./../formfields/select.js";
 var TradingDesk = React.createClass({
+   isComponentDirty:false,
    getInitialState: function () {
       return this.getStateFromProps(this.props);
    },
@@ -12,18 +13,22 @@ var TradingDesk = React.createClass({
       var tradingDesk = this.props.productId ? this.props.pd.productTradingDesks : [];
       var productType = this.props.pd ? this.props.pd.productType : '';
       var params = this.props.params ? this.props.params : '';
+      var isSuccess = this.props.isSuccess ? this.props.isSuccess : '';
+      var errorHandlers = this.props.errorHandlers ? this.props.errorHandlers : '';
       return {
          "insert":false, tradingDesk: tradingDesk, refData: refData, productType : productType,
-         disableFormFields: disableFormFields, multiSelectName: multiSelectName, params : params
+         disableFormFields: disableFormFields, multiSelectName: multiSelectName, params : params,
+         isSuccess: isSuccess, errorHandlers: errorHandlers
       };
    },
    componentWillReceiveProps: function (newProps) {
       console.log("TradingDesk:componentWillReceiveProps.props",newProps);
-      if(newProps.isSuccess) {
+      if(! this.isComponentDirty) {
          this.setState(this.getStateFromProps(newProps));
       }
    },
    addTradingDesks(){
+
       let selectTradingDeskObj = this.getRefDataValueForKey(apidata.TRADING_DESK);
       let p = '';
       let selectedTradingDesk = document.getElementById('tradingBox').value;
@@ -34,8 +39,10 @@ var TradingDesk = React.createClass({
             }
          }
       } else {
-         this.props.isSuccess = false;
-         this.props.errorHandlers.push(apidata.TRADING_DESK_VALIDATION_MESSAGE);
+         //this.props.isSuccess = false;
+         //this.props.errorHandlers.push(apidata.TRADING_DESK_VALIDATION_MESSAGE);
+         this.setState({isSuccess: false,
+            errorHandlers:apidata.TRADING_DESK_VALIDATION_MESSAGE });
       }
       let TradingArray = this.state.tradingDesk;
       let validTradingDesk = true;
@@ -44,7 +51,7 @@ var TradingDesk = React.createClass({
             if(TradingArray[x].deskName === p){
                validTradingDesk =  false;
                console.log("in valid");
-               alert("The product must only be assigned one instance of the Trading Desk. The same desk cannot be assigned to the Product more than one.");
+               alert(apidata.ONLY_ONE_INSTANCE_OF_TRADING_DESK_ALLOWED);
                return false;
             } else {
                console.log("valid");
@@ -89,6 +96,7 @@ var TradingDesk = React.createClass({
             }
 
          );
+         this.isComponentDirty = true;
          this.forceUpdate();
       }
    },
@@ -108,6 +116,7 @@ var TradingDesk = React.createClass({
    deleteBankEntity(bankEntity, key){
       console.log(bankEntity);
       this.state.tradingDesk[key].bankEntities = bankEntity;
+      this.isComponentDirty = true;
    },
    deleteTrading(id){
       let delId = id.split('_');
@@ -120,33 +129,33 @@ var TradingDesk = React.createClass({
          }
          this.state.tradingDesk = updateTradingDesk;
          this.forceUpdate();
+         this.isComponentDirty = true;
       }
    },
    enableDisableExternal(indexValue, isChecked){
-      console.log(this.state.tradingDesk);
       var checkboxes = document.getElementsByClassName(indexValue+"_external_Channels");
-      console.log(checkboxes.length);
-
+      console.log("checkboxes", checkboxes);
+      console.log("isChecked", isChecked);
       for(var i=0; i < checkboxes.length; i++){
-        // console.log(checkboxes[i].name);
         if(isChecked){
           this.state.tradingDesk[indexValue][checkboxes[i].name] = "N";
           checkboxes[i].setAttribute("disabled", "disabled");
+           console.log("checkboxes forloop", checkboxes);
           checkboxes[i].checked = false;
         } else {
            checkboxes[i].removeAttribute("disabled");
         }
       }
+      console.log("checkboxes outside", checkboxes);
         this.state.tradingDesk[indexValue].internalTradesOnly = "Y";
 
-        console.log(this.state.tradingDesk);
         this.forceUpdate();
+      this.isComponentDirty = true;
    },
    render() {
       let selectDesk = this.getRefDataValueForKey(apidata.TRADING_DESK);
-      console.log("tradingDesk.jsx::render::selectDesk", selectDesk);
       let approvedHeritage = this.getRefDataValueForKey(apidata.BANK_ENTITY);
-      
+
       var rows = []; var len = 0;
       if(this.state.insert){
 
@@ -165,7 +174,7 @@ var TradingDesk = React.createClass({
                   <div className="form-group">
                     <SelectBox sid="tradingBox" data={selectDesk} id={apidata.apiKeys.refDataId}
                                value={apidata.apiKeys.refDataValue}
-                               placeholder="---- Select trading desks ----"
+                               placeholder="---- Select trading desk ----"
                                disabled={this.props.disabled}
                                //defaultVal={this.state.tradingDesk.deskName !== "" ? this.state.tradingDesk.deskName : "-- Select Trading Desk --"}
                     />
