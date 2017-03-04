@@ -62,7 +62,7 @@ var App = React.createClass({
             var isInitiationModal = false;
             var isModal = false;
             var isUndoModal = false;
-            var errorHandlers = [];
+            var errorHandlers = "";
             var username = this.props.user ? this.props.user.principal.username : 'Guest';
             return {
                   formValue: {},
@@ -205,8 +205,9 @@ var App = React.createClass({
             })*/
 
             this.setState({
-                  actionMessage: '',
-                  productDetails: ''
+                  errorHandlers: '',
+                  productDetails: '',
+                  productTypeProductDetails:{}
             });
 
             if (this.props.params.action == ACTION_VIEW_LATEST_APPROVED) {
@@ -245,8 +246,7 @@ var App = React.createClass({
             var form = document.getElementById('productForm');
             for (var i = 0; i < form.elements.length; i++) {
                   if (form.elements[i].value === '' && form.elements[i].hasAttribute('required')) {
-                        this.setState({ isSuccess: false });
-                        this.state.errorHandlers.push(MANDATORY_FIELD_VALIDATION_MESSAGE)
+                        this.setState({ isSuccess: false, errorHandlers: MANDATORY_FIELD_VALIDATION_MESSAGE});
                         return false;
                   }
             }
@@ -260,10 +260,10 @@ var App = React.createClass({
             this.sendToServer(ACTION_SAVE);
       },
       submit() {
-            this.state.errorHandlers = [];
+            this.state.errorHandlers = "";
             let tradingObj = this.tradingDesks.productTradingDesks;
             let tradingDeskLength = tradingObj.length;
-            //this.formMandatoryFieldCheck();
+            this.formMandatoryFieldCheck();
 
             // Select atleast one trading desk as primary desk & atleast one client segment should be selected
             let atleaseOnePrimary = false;
@@ -297,19 +297,12 @@ var App = React.createClass({
             });
             if (!atleaseOnePrimary) {
                   console.log("Am here primary desk not selected", this.state.errorHandlers)
-                  this.setState({ isSuccess: false });
-                  //this.setState({errorHandlers: PRIMARY_DESK_VALIDATION_MESSAGE});
-                  this.state.errorHandlers.push(PRIMARY_DESK_VALIDATION_MESSAGE)
-                  //alert("A Product must have one desk as primary desk");
+                  this.setState({ isSuccess: false,errorHandlers:PRIMARY_DESK_VALIDATION_MESSAGE});
                   return false;
             }
             if (!existCheckedOrNot) {
-                  this.setState({ isSuccess: false });
-                  console.log("CLIENT_SEGMENT_VALIDATION_MESSAGE", this.state.errorHandlers)
                   var clientSegmentMessage = CLIENT_SEGMENT_VALIDATION_MESSAGE + eachTrading.deskName;
-                  //this.setState({errorHandlers: clientSegmentMessage});
-                  this.state.errorHandlers.push(clientSegmentMessage)
-                  //alert("Please select atleast one Client Segment for "+eachTrading.deskName)
+                  this.setState({ isSuccess: false,errorHandlers:clientSegmentMessage});
                   return false;
             }
             // End of Select atleast one trading desk as primary desk & atleast one client segment should be selected
@@ -328,43 +321,29 @@ var App = React.createClass({
                                           console.log("Valid entity row")
                                     } else {
                                           var tradeEconomicDateMessage = TRADE_ECONOMIC_DATA_ROW_VALIDATION_MESSAGE + tradingObj[i].deskName + " and the " + eachBankenityObj[j].bankEntityName;
-                                          this.setState({ isSuccess: false });
-                                          //this.setState({errorHandlers: tradeEconomicDateMessage})
-                                          this.state.errorHandlers.push(tradeEconomicDateMessage)
-                                          //alert("At least one row of Trade Economic data must be entered for the  "+tradingObj[i].deskName+" and the "+ eachBankenityObj[j].bankEntityName);
+                                          this.setState({ isSuccess: false,errorHandlers:tradeEconomicDateMessage });
                                           return false;
                                     }
                                     // Ends Trade Economic data Row validations
                               }
                         } else {
                               var BANK_ENTITY_VALIDATION_MESSAGE = "At least one Bank Entity must be selected for " + tradingObj[i].deskName;
-                              this.setState({ isSuccess: false });
-                              this.state.errorHandlers.push(BANK_ENTITY_VALIDATION_MESSAGE)
-                              //this.setState({errorHandlers: BANK_ENTITY_VALIDATION_MESSAGE})
-                              //alert("At least one Bank Entity must be selected for "+tradingObj[i].deskName);
+                              this.setState({isSuccess: false, errorHandlers: BANK_ENTITY_VALIDATION_MESSAGE});
                               return false;
                         }
                         // Ends Bank Entity validations
                   }
 
                   // Mandatory field Validations
-                  this.formMandatoryFieldCheck();
+                  //this.formMandatoryFieldCheck();
                   //End of Mandatory field Validations
                   //When all the validations are passed submit to server
                   this.sendToServer(ACTION_SUBMIT);
             } else {
-                  this.setState({ isSuccess: false });
-                  //console.log("actionMessage.trading desk ",actionMessage.tradingDeskValidation = TRADING_DESK_VALIDATION_MESSAGE)
-                  //console.log("actionMessage.trading desk ",actionMessage)
-                  this.state.errorHandlers.push(TRADING_DESK_VALIDATION_MESSAGE)
-                  //this.setState({errorHandlers: TRADING_DESK_VALIDATION_MESSAGE})
-                  //alert("Product has not be assigned a Trading Desk");
+                 this.setState({isSuccess: false, errorHandlers: TRADING_DESK_VALIDATION_MESSAGE});
                   return false;
             }
             // Ends Trading Desk validations
-            if (this.state.errorHandlers.length > 0) {
-                  this.setState({ errorsDisplay: true })
-            }
       },
       discard() {
             this.sendToServer(ACTION_DISCARD);
@@ -456,7 +435,7 @@ var App = React.createClass({
             this.tradingDesks = { productTradingDesks: desksObject };
       },
       errorMessagesHide() {
-            this.setState({ errorsDisplay: false })
+            this.setState({ errorsDisplay: false, errorHandlers: '' })
       },
       updatedForm(e) {
             /*let idForm = e.target.id;
@@ -502,7 +481,7 @@ var App = React.createClass({
       },
       changeProductType(productType){
             
-            this.state.productDetails.productType = productType;
+            this.state.productTypeProductDetails.productType = productType;
             // console.log(this.state.productDetails);
              this.forceUpdate();
             //this.setState({productDetails.productType:productType })
@@ -513,8 +492,11 @@ var App = React.createClass({
             // console.log("app.jsx:render: this.state.actionMessage", this.state.actionMessage);
             // console.log("app.jsx:render: this.state.disabled", this.state.disabled);
             // console.log("app.jsx:render: this.state.multiSelectDisableFieldName", this.state.multiSelectDisableFieldName);
-           var productType = this.state.productDetails.productType;
-            console.log(this.state.productDetails);
+           if(this.props.params.action == ACTION_VIEW || this.props.params.action == ACTION_EDIT) {
+               var productType = this.state.productDetails.productType;
+            } else {
+               var productType = this.state.productTypeProductDetails.productType;
+            }
             var messageColour = this.state.isSuccess ? "green" : "red";
             var displayEditButton = ((this.props.params.auditStatus == AUDIT_STATUS_APPROVED || this.props.params.auditStatus == AUDIT_STATUS_INITIATED) &&
                   this.props.params.action == ACTION_VIEW);
@@ -605,17 +587,12 @@ var App = React.createClass({
                                     <h4 className="text-center">{this.state.productDetails.apdId} - {this.state.productDetails.productName}</h4>
                               </div>
                         </div>
-                        {this.state.errorHandlers && this.state.errorHandlers.length > 0 &&
-                              <div ref="errorMessages" className={this.state.errorsDisplay === true ? 'displayBlock' : 'displayNone row messages-header'}>
+                        {(this.state.errorHandlers && this.state.errorHandlers != "") &&
+                              <div ref="errorMessages" id="errorMessagesHeader" className="displayBlock errorMessagesDisplay">
                                     <span className="close" onClick={this.errorMessagesHide}>X</span>
                                     <ul className="col-lg-12 col-md-12">
-                                          {(this.state.errorHandlers).map((value, key) => (
-                                                <li>
-                                                      <font color={messageColour}><b>{value}</b></font>
-                                                </li>
-                                          ))}
                                           <li>
-                                                <font color={messageColour}><b>{this.state.actionMessage}</b></font>
+                                             <font color={messageColour}><b>{this.state.errorHandlers}</b></font>
                                           </li>
                                     </ul>
                               </div>
