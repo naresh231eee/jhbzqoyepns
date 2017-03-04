@@ -6,27 +6,27 @@ import CheckBox from "./../formfields/checkbox.js";
 import * as apidata from "./../api/api_form.jsx";
 import Select from "react-select";
 import SelectBox from "./../formfields/select.js";
-import {ACTION_EDIT} from "../api/api_form.jsx";
+import {ACTION_EDIT, ACTION_VIEW} from "../api/api_form.jsx";
 
 var ProductDetails = React.createClass({
+   isComponentDirty : false,
    getInitialState: function(){
-      console.log("this.props.pd details", this.props.pd);
+
       return this.getStateFromProps(this.props);
    },
    componentWillReceiveProps: function (newProps) {
       console.log("ProductDetails:componentWillReceiveProps.props",newProps);
-      if(newProps.isSuccess) {
+      console.log("this.isComponentDirty", this.isComponentDirty);
+
+      if(!this.isComponentDirty) {
+         console.log("Changing the state" );
          this.setState(this.getStateFromProps(newProps));
       }
    },
    getStateFromProps: function (props) {
-
-      var phierarchyMap = this.getAttrMap(this.props.pd.productHierarchy);
-
       var pgDataAvailable = false;
       var pgOwner,pgPhone,lastAARDate,nextAARDate,complianceOwnerName,lastApprovalBy,productLaunchDate  = '';
-      console.log("this.props boom", props.pd.productHierarchy);
-      //console.log("this.productFamily boom", props.pd.productHierarchy.productFamily);
+
       if (props.pd) {
          var productName = props.pd.productName;
          var productCode = props.pd.productCode;
@@ -38,7 +38,7 @@ var ProductDetails = React.createClass({
          var oneOffTrading = props.pd.oneOffTrading ? props.pd.oneOffTrading : '';
 
          var residualRiskRating = props.pd.residualRiskRating ? props.pd.residualRiskRating : '';
-
+         var phierarchyMap = this.getAttrMap(props.pd.productHierarchy);
          var productFamily = this.extractSingleAttributeValueForKey(phierarchyMap, apidata.PRODUCT_FAMILY);
          var productSubFamily = this.extractSingleAttributeValueForKey(phierarchyMap, apidata.PRODUCT_SUB_FAMILY);
          var assetClass = this.extractSingleAttributeValueForKey(phierarchyMap, apidata.ASSET_CLASS);
@@ -124,7 +124,8 @@ var ProductDetails = React.createClass({
          productComplexity:productComplexity, residualRiskRating: residualRiskRating,
          productSubFamily: productSubFamily, compositeProduct: compositeProduct, productType: productType,
          mustUseMarkit: mustUseMarkit, assetClass: assetClass, productSubset: productSubset,
-         //policyReference: policyReference, npaReference: npaReference,
+         //policyReference: policyReference,
+         npaReference: npaReference,
 
          /************** Valuation details ***********/
          qlProductValue: qlProductValue, pricingModelValue: pricingModelValue,
@@ -148,9 +149,6 @@ var ProductDetails = React.createClass({
       };
    },
    getRefDataValueForKey: function(key) {
-//       console.log("key get::::::", key);
-//       console.log("getRefDataValueForKey::::::", this.props.refData);
-//       console.log("getRefDataValueForKey get::::::", this.props.refData.get(key));
       return this.props.refData.get(key);
    },
    getAttrValues(attrKey, dataGroup){
@@ -180,14 +178,12 @@ var ProductDetails = React.createClass({
          for (i = 0; i < len; i++) {
             if(attrMap.has(dataGroup[i].attrName)){
                var valueArray = (attrMap.get(dataGroup[i].attrName)).concat(dataGroup[i]);
-               //console.log("attrMap.get(dataGroup[i].attrName)", attrMap.get(dataGroup[i].attrName));
                attrMap.set(dataGroup[i].attrName, valueArray);
             } else {
                var valueArray = [dataGroup[i]];
                attrMap.set(dataGroup[i].attrName, valueArray);
             }
          }
-         //console.log("attrMap", attrMap);
          return attrMap;
       }
    },
@@ -222,37 +218,31 @@ var ProductDetails = React.createClass({
       return dateFormated;
    },
    handleSelectChange(name, selectedValue, e){
-//       console.log("selectedValue",selectedValue);
-//       console.log("name",name);
-//       console.log("e",e);
-
       var change = {};
       change[name] = selectedValue;
       this.setState(change);
+      this.isComponentDirty=true;
    },
    handleInputChange(name, e){
-     console.log(name)
-     console.log(e)
       var change = {};
       change[name] = e.target.value;
       this.setState(change);
+      this.isComponentDirty=true;
+      if(name == 'productType'){
+         this.props.changeProductType(e.target.value);
+      }
    },
    handleCheckBox(name, e){
       var change = {};
       change[name] = e.target.checked;
-      console.log(change);
       this.setState(change);
-   },
-   dropdownChange(e){
-        console.log(e.target.value);
-        // this.setState({productStatus: e.target.value});
-        this.props.changeProductType(e.target.value);
-       
+      this.isComponentDirty=true;
    },
    getData: function() {
       return this.state;
    },
     render() {
+      console.log("productDetails.jsx.render.state", this.state);
         // Product Details
        let productStatusOptions = this.getRefDataValueForKey(apidata.PRODUCT_STATUS);
        let productFamilyOptions = this.getRefDataValueForKey(apidata.PRODUCT_FAMILY);
@@ -293,9 +283,6 @@ var ProductDetails = React.createClass({
        let MIFIDIIClassification = this.getRefDataValueForKey(apidata.MIFID2_CLASS);
        let ISDAClassification = this.getRefDataValueForKey(apidata.ISDA_CLASS);
        /************** end of Regulatory Classification details ***********/
-       console.log("this.props.productType");
-       console.log(this.props.productType);
-//        console.log(_.find(productTypeOptions, {refDataValue: this.state.productType}).refDataId);
        return (
 
             <div className="container txt-color">
@@ -306,6 +293,7 @@ var ProductDetails = React.createClass({
                         <label htmlFor="productName">Product Name<span className="requiredField"> *</span></label>
                         <InputText name="productName" value={this.state.productName ? this.state.productName : ''}
                                    sid="productName"
+                                   id="productName"
                                    onChange={this.handleInputChange.bind(this, 'productName')}
                                    disabled={this.props.disabled}
                                    required
@@ -316,26 +304,19 @@ var ProductDetails = React.createClass({
                   <div className="col-lg-3 col-md-3 col-sm-3">
                      <div className="form-group item-required">
                         <label htmlFor="productType">Product Type<span className="requiredField"> *</span></label>
-                        { /* (this.props.params.action == ACTION_EDIT) ?
+                        {(this.props.params.action == ACTION_EDIT || this.props.params.action == ACTION_VIEW) ?
                            <p className="form-control-static para">{this.state.productType}</p> :
-                           <SelectBox data={productTypeOptions}
-                                      selected={this.state.productType}
-                                      value={apidata.apiKeys.refDataValue}
-                                      id={apidata.apiKeys.refDataValue}
-                                      sid="productType"
-                                      onChange={this.dropdownChange}
-                                      placeholder="---- Select Product Type ----"
-                                      disabled={this.props.disabled}
-                        //_.find(productTypeOptions, {refDataValue: this.state.productType}).refDataId
-                                      required /> */
-                        }  
-                        <select onChange={this.dropdownChange} value={this.props.productType} placeholder="Welcome">
-                                <option value="">--------Select Product Type--------</option>
-                                {_.map(productTypeOptions, (data, key)=>{
-                                        return (<option value={data.refDataValue}>{data.refDataValue}</option>)
-                                })}
-                                 
-                        </select>
+                        <SelectBox data={productTypeOptions}
+                                   selected={this.state.productType}
+                                   value={apidata.apiKeys.refDataValue}
+                                   id="productType"
+                                   sid="productType"
+                                   onChange={this.handleInputChange.bind(this,'productType' )}
+                                   placeholder="---- Select product status ----"
+                                   disabled={this.props.disabled}
+                                   required
+                        />
+                        }
                      </div>
                   </div>
                   <div className="col-lg-3 col-md-3 col-sm-3">
@@ -412,7 +393,7 @@ var ProductDetails = React.createClass({
                <div className="row">
                   <div className="col-lg-3 col-md-3 col-sm-3">
                      <div className="form-group">
-                        <label htmlFor="residualRiskRating">Residual Risk Rating</label>
+                        <label htmlFor="residualRiskRating">Residual Risk Rating <span className="requiredField"> *</span></label>
                         <SelectBox data={residualRiskRatingOptions}
                                    selected={this.state.residualRiskRating}
                                    value={apidata.apiKeys.refDataValue}
@@ -421,6 +402,7 @@ var ProductDetails = React.createClass({
                                    onChange={this.handleInputChange.bind(this,'residualRiskRating' )}
                                    placeholder="---- Residual Risk Rating ----"
                                    disabled={this.props.disabled}
+                                   required
                         />
                      </div>
                   </div>
@@ -487,7 +469,7 @@ var ProductDetails = React.createClass({
                   </div>
                   <div className="col-lg-3 col-md-3 col-sm-3">
                      <div className="form-group item-required">
-                        <label htmlFor="productFamily">Product Family<span className="requiredField"> *</span></label>
+                        <label htmlFor="productFamily">Product Family</label>
                         <SelectBox name="productFamily" data={productFamilyOptions}
                                    selected={this.state.productFamily}
                                    value={apidata.apiKeys.refDataValue}
@@ -516,7 +498,7 @@ var ProductDetails = React.createClass({
                   </div>
                   <div className="col-lg-3 col-md-3 col-sm-3">
                      <div className="form-group">
-                        <label htmlFor="productComplexityLabel">Product Subset<span> *</span></label>
+                        <label htmlFor="productComplexityLabel">Product Subset</label>
                         <SelectBox data={productSubsetOptions}
                                    selected={this.state.productSubset}
                                    value={apidata.apiKeys.refDataValue}
@@ -534,19 +516,9 @@ var ProductDetails = React.createClass({
 
                <hr />
                <div className="row">
-                  {/*<div className="col-lg-3 col-md-3 col-sm-3">
-                     <div className="form-group">
-                        <label htmlFor="policyReference">Policy Reference</label>
-                        <InputText value={this.state.policyReference}
-                                   onChange={this.handleInputChange.bind(this,'policyReference')}
-                                   disabled={this.props.disabled}
-                                   sid="policyReference"
-                        />
-                     </div>
-                  </div>*/}
                   <div className="col-lg-3 col-md-3 col-sm-3">
                      <div className="form-group">
-                        <label htmlFor="npaReference">NPA Reference<span className="requiredField"> *</span></label>
+                        <label htmlFor="npaReference">NPA Reference</label>
                         <InputText value={this.state.npaReference}
                                    onChange={this.handleInputChange.bind(this,'npaReference')}
                                    disabled={this.props.disabled}
