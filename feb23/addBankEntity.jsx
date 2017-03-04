@@ -1,11 +1,11 @@
 import React from "react";
 import AddBankEntityRow from "./addBankEntityRow.jsx";
 import Commodities from "./commoditiesFeatures.jsx";
-// import Credit from "./creditFeatures.jsx";
-// import Rates from "./ratesFeatures.jsx";
+import Credit from "./creditFeatures.jsx";
+import Rates from "./ratesFeatures.jsx";
 import MMAndRepo from "./mmAndRepoFeatures.jsx";
-// import FX from "./fxFeatures.jsx";
-import SelectBox from "./../formfields/select.jsx";
+import FX from "./fxFeatures.jsx";
+import SelectBox from "./../formfields/select.js";
 import CheckBox from "./../formfields/checkbox.js";
 import * as apidata from "./../api/api_form.jsx";
 
@@ -124,40 +124,33 @@ var NewBankEntity= React.createClass({
       this.setState(bankEntityRows)
    },
    updateBankEntity(tradingDeskId, bankEntityId, rowId, rowData){
-        // console.log(tradingDeskId + ' ^^ '+ this.props.tradingIndex )
-        // console.log(bankEntityId + '----' + this.props.bankentityIndex)
-        // console.log("rowId", rowId)
-        // console.log("rowData", rowData);
         this.props.bankEntityResult.bankEntityCurrencies=rowData;
-        console.log("---------This row data is displaying", this.props.bankEntityResult);
-        console.log("--------->>>>>>done");
         this.setState({bankEntities: rowData});
        // this.props.updateEntity(tradingDeskId, bankEntityId, rowId, rowData);
    },
    renderBankEntitiesRows(){
-           this.setState({renderBankEntitiesRows: !this.state.renderBankEntitiesRows})
+      this.setState({renderBankEntitiesRows: !this.state.renderBankEntitiesRows})
    },
    render() {
       var bankEntityRow;
-      console.log("this.props.productType ------------")
-      console.log(this.props.productType)
       if(this.state.insertRow){
          bankEntityRow = <AddBankEntityRow />;
       }
       let underlyingStatus = this.getRefDataValueForKey(apidata.UNDERLYING_STATUS);
       var anyCcyPairAllowed = this.state.anyCcyPairAllowed=='Y' ? true:false;
       let gridRowsLength = this.state.bankEntityRows.bankEntityCurrencies.length;
+
       return (
-         <div className="wrapper">
-            <div className="row padding-top-bottom">
+         <div className="wrapper bankentity-containers">
+            <div className="row padding-5">
                <div className="col-lg-3 col-md-3 col-sm-3">
                   <div className="form-group  margin-left-25">
-                     <h2 className="" onClick={this.renderBankEntitiesRows}>{this.props.bankEntityName} - {this.props.region}</h2>
+                     <h3 className="" onClick={this.renderBankEntitiesRows}>{this.props.bankEntityName} - {this.props.region}</h3>
                   </div>
                </div>
                <div className="col-lg-2 col-md-2 col-sm-2">
                   <div className="form-group">
-                     <label for="bankEntityStatus">Bank status</label>
+                     <label for="bankEntityStatus">Bank Entity status</label>
                      <SelectBox data={underlyingStatus}
                                 selected={this.state.bankEntityStatus}
                                 value={apidata.apiKeys.refDataValue}
@@ -167,11 +160,10 @@ var NewBankEntity= React.createClass({
                                 placeholder="Please Select Entity Status"
                                 disabled={this.props.disableFormFields}
                      />
-
                   </div>
                </div>
                { this.state.productType == "FX" &&
-                  <div className="col-lg-6 col-md-6 col-sm-6">
+                  <div className="col-lg-4 col-md-4 col-sm-4">
                      <div className="form-group">
                         <label for="ccyPair">Any CCY Pair Combination Allowed
                            <span>(Lowest Tenor will be applied)</span>
@@ -195,51 +187,50 @@ var NewBankEntity= React.createClass({
                      </button>
                   </div>
                </div>
-             
+            </div>
             <div className="clear"></div>
-            { /*<div className="row">
-               <div className="col-lg-2 col-md-2 col-sm-2"></div>
-               <div className="col-lg-4 col-md-4 col-sm-4 pull-right padding-left-90">
-                  <input type="button" className="btn btn-primary margin-right-10" value="Add new Row" onClick={this.addNewRow} disabled={this.props.disableFormFields} />
-                  <input type="button" className="btn btn-default margin-right-10" value="Delete Rows" disabled={this.props.disableFormFields}
-                         id={'deleterow_'+this.props.tradingIndex+'_'+this.props.bankentityIndex} onClick={this.deleteRowHandler}  />
-               </div>
-            </div>*/}
             <div className="clear"></div>
-           { this.state.renderBankEntitiesRows &&
-                <div>
-            { this.props.productType === "Commodities" && 
-               <Commodities gridRows={this.state.bankEntityRows.bankEntityCurrencies}
+            { this.state.renderBankEntitiesRows &&
+            <div>
+                  { this.props.productType === "Commodities" &&
+                     <Commodities gridRows={this.state.bankEntityRows.bankEntityCurrencies}
+                                  refData={this.props.refData} updateEntity={this.updateBankEntity}
+                                  tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
+                                  gridRowsLength={gridRowsLength} disabled={this.props.disableFormFields}
+
+                     />
+                  }
+                  { (this.props.productType === "Money Markets" || this.props.productType === "Repo") &&
+                     <MMAndRepo gridRows={this.state.bankEntityRows.bankEntityCurrencies}
+                             refData={this.props.refData} updateEntity={this.updateBankEntity}
+                             tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
+                             gridRowsLength={gridRowsLength} disabled={this.props.disableFormFields}
+                     />
+                  }
+                  { (this.props.productType === "Credit" || this.state.productType === "Credit Trading") &&
+                     <Credit gridRows={this.state.bankEntityRows.bankEntityCurrencies}
+                             refData={this.props.refData} updateEntity={this.updateBankEntity}
+                             tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
+                             gridRowsLength={gridRowsLength} disabled={this.props.disableFormFields}
+                     />
+                  }
+                  { this.props.productType === "Rates" &&
+                     <Rates gridRows={this.state.bankEntityRows.bankEntityCurrencies}
                             refData={this.props.refData} updateEntity={this.updateBankEntity}
                             tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
-                            gridRowsLength={gridRowsLength}
+                            gridRowsLength={gridRowsLength} disabled={this.props.disableFormFields}
+                     />
+                  }
+                  { this.props.productType === "FX" &&
+                     <FX gridRows={this.state.bankEntityRows.bankEntityCurrencies}
+                         refData={this.props.refData} updateEntity={this.updateBankEntity}
+                         tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
+                         gridRowsLength={gridRowsLength} disabled={this.props.disableFormFields}
+                     />
+                  }
+            </div>
+            }
 
-               />
-            }
-            { (this.props.productType === "Money Markets" || this.props.productType === "Repo") &&
-               <MMAndRepo gridRows={this.state.bankEntityRows.bankEntityCurrencies}
-                       refData={this.props.refData} updateEntity={this.updateBankEntity}
-                       tradingIndex={this.props.tradingIndex} bankEntityIndex={this.props.bankentityIndex}
-                       gridRowsLength={gridRowsLength}
-               />
-            }
-            { /*this.props.productType == "Credit" &&
-               <Credit gridRows={this.state.bankEntityRows.bankEntityCurrencies}
-                       refData={this.props.refData}
-               />*/
-            }
-            { /* this.props.productType == "Rates" &&
-               <Rates gridRows={this.state.bankEntityRows.bankEntityCurrencies}
-                      refData={this.props.refData}
-               />*/
-            }
-            { /* this.props.productType == "FX" &&
-               <FX gridRows={this.state.bankEntityRows.bankEntityCurrencies}
-                   refData={this.props.refData}
-               />*/
-            }</div>
-           }
-</div>
          </div>
 
       );
