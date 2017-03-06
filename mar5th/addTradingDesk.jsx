@@ -172,7 +172,7 @@ var AddTradingDesk = React.createClass({
                                 if (validBank) {
                                         if (BankEntityArray[j].bankEntityName === bankEntity && BankEntityArray[j].region === region) {
                                                 validBank = false;
-                                                alert("The Trading Desk must only be assigned one instance of the Bank Entity & region. The same entity & region cannot be assigned to a Trading Desk more than one.");
+                                                alert(apidata.ONLY_ONE_INSTANCE_OF_ENTITY_AND_REGION_ALLOWED_FOR_A_TRADING_DESK);
                                                 return false;
                                         } else {
                                                 validBank = true
@@ -194,7 +194,7 @@ var AddTradingDesk = React.createClass({
                                 this.forceUpdate();
                         }
                 } else {
-                        alert("Please select both Bank entity & the Region");
+                        alert(apidata.BOTH_ENTITY_AND_REGION_MUST_BE_SELECTED);
                         return false;
                 }
         },
