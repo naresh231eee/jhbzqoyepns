@@ -9,7 +9,7 @@ import ConfirmationModal from "./confirmationModal.jsx";
 import InitiationModal from "./initiationModal.jsx";
 import DiscardModal from "./discardModal.jsx";
 import TradingDesk from "./tradingDesk.jsx";
-import { Link } from "react-router";
+import { Router, Route, Link, hashHistory, browserHistory, IndexRoute, History } from "react-router";
 import { ModalContainer, ModalDialog } from "react-modal-dialog";
 import * as util from "./../util/util.js";
 
@@ -41,7 +41,7 @@ import GovernanceDetails from "./governanceDetails.jsx";*/
 //import ConfirmationInitiationModal from "./confirmationInitiationModal.jsx";
 console.log(apidata);
 var App = React.createClass({
-
+      mixins: [History],
       getInitialState() {
             var tabdata = [
                   { id: 1, author: "Change Details", text: "This is one comment" },
@@ -258,8 +258,10 @@ var App = React.createClass({
             window.location.replace('#/products/${this.props.params.productId}/' + ACTION_EDIT + '/' + this.props.params.auditStatus);
       },
       save() {
-            console.log(ACTION_SAVE)
-            this.sendToServer(ACTION_SAVE);
+           let action ='wonder';
+            console.log(this.props);
+            this.props.history.pushState({action: ACTION_SAVE, demo: 'demo'},"/");
+            // this.sendToServer(ACTION_SAVE);
       },
       submit() {
             this.state.errorHandlers = "";
@@ -413,7 +415,9 @@ var App = React.createClass({
                   var url = 'apd/createProductRaw?action=' + action + '&userId=' + this.state.username;
             else
                   var url = 'apd/updateProductRaw?action=' + action + '&userId=' + this.state.username;
-            window.location.replace('#/');
+                  this.props.params.action ='hello';
+            window.location.replace('#/?action='+this.props.params.action);
+            // this.props.params.auditStatus
             // console.log("app.jsx:sendToServer:this.currentUser", this.state.username);
             // console.log("app.jsx:sendToServer:this.formData", JSON.stringify(data));
             // console.log("app.jsx:sendToServer:this.url", url);
