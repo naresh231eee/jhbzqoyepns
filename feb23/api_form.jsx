@@ -37,7 +37,8 @@ export const TRADING_DESK_VALIDATION_MESSAGE = "Product has not be assigned a Tr
 export const PRODUCT_NAME_TYPE_VALIDATION_MESSAGE = "Product Name and Prouct Type must be provided to save a Product";
 export const ONLY_ONE_INSTANCE_OF_TRADING_DESK_ALLOWED = "The product must only be assigned one instance of the Trading Desk. The same desk cannot be assigned to the Product more than one.";
 export const INTERNAL_EXTERNAL_TOGGLE_MESSAGE = "Data within the Distribution Channels section will be lost. Are you sure you want to select Internal Only?";
-
+export const ONLY_ONE_INSTANCE_OF_ENTITY_AND_REGION_ALLOWED_FOR_A_TRADING_DESK ="The Trading Desk must only be assigned one instance of the Bank Entity & region. The same entity & region cannot be assigned to a Trading Desk more than one.";
+export const BOTH_ENTITY_AND_REGION_MUST_BE_SELECTED = "Please select both Bank entity & the Region";
 
 export const OPERATION_CREATE = "Create";
 export const OPERATION_UPDATE = "Update";
