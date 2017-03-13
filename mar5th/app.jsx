@@ -265,89 +265,20 @@ var App = React.createClass({
       },
       submit() {
             this.state.errorHandlers = "";
-            let tradingObj = this.tradingDesks.productTradingDesks;
-            let tradingDeskLength = tradingObj.length;
-            this.formMandatoryFieldCheck();
+      let tradingObj = this.tradingDesks.productTradingDesks;
+      let tradingDeskLength = tradingObj.length;
 
-            // Select atleast one trading desk as primary desk & atleast one client segment should be selected
-            let atleaseOnePrimary = false;
-            let existCheckedOrNot = false;
+      /**** Mandatory field Validations ****/
+      this.formMandatoryFieldCheck();
+      /**** End of Mandatory field Validations ****/
 
-            (tradingObj).map((eachTrading, key) => {
-                  if (eachTrading.primaryDesk) {
-                        atleaseOnePrimary = true;
-                  }
-                  if (eachTrading.internalTradesOnly) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.interbankTradesBToBOnly) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.financialInstitutions) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.globalCorporates) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.midMarkets) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.sME) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.sMESegment) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.wealth) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.retailBusinessBanking) {
-                        existCheckedOrNot = true;
-                  } if (eachTrading.retail) {
-                        existCheckedOrNot = true;
-                  }
-            });
-            if (!atleaseOnePrimary) {
-                  console.log("Am here primary desk not selected", this.state.errorHandlers)
-                  this.setState({ isSuccess: false,errorHandlers:PRIMARY_DESK_VALIDATION_MESSAGE});
-                  return false;
-            }
-            if (!existCheckedOrNot) {
-                  var clientSegmentMessage = CLIENT_SEGMENT_VALIDATION_MESSAGE + eachTrading.deskName;
-                  this.setState({ isSuccess: false,errorHandlers:clientSegmentMessage});
-                  return false;
-            }
-            // End of Select atleast one trading desk as primary desk & atleast one client segment should be selected
-            // Trading Desk validations
-            if (tradingDeskLength > 0) {
-                  for (let i = 0; i < tradingDeskLength; i++) {
-                        let eachBankenityObj = tradingObj[i].bankEntities;
-                        let bankEntityLength = eachBankenityObj.length;
-                        // Bank Entity validations
-                        if (bankEntityLength > 0) {
-                              for (let j = 0; j < eachBankenityObj.length; j++) {
-                                    let eachBankenityRowObj = eachBankenityObj[j].bankEntityCurrencies;
-                                    let eachBankenityRowObjLength = eachBankenityRowObj.length;
-                                    // Trade Economic data Row ***
-                                    if (eachBankenityRowObjLength > 0) {
-                                          console.log("Valid entity row")
-                                    } else {
-                                          var tradeEconomicDateMessage = TRADE_ECONOMIC_DATA_ROW_VALIDATION_MESSAGE + tradingObj[i].deskName + " and the " + eachBankenityObj[j].bankEntityName;
-                                          this.setState({ isSuccess: false,errorHandlers:tradeEconomicDateMessage });
-                                          return false;
-                                    }
-                                    // Ends Trade Economic data Row validations
-                              }
-                        } else {
-                              var BANK_ENTITY_VALIDATION_MESSAGE = "At least one Bank Entity must be selected for " + tradingObj[i].deskName;
-                              this.setState({isSuccess: false, errorHandlers: BANK_ENTITY_VALIDATION_MESSAGE});
-                              return false;
-                        }
-                        // Ends Bank Entity validations
-                  }
+      /**** Select atleast one trading desk as primary desk & atleast one client segment should be selected ****/
+      this.atleastOnePrimaryDeskAndInternalOrExternalTradesFlag(tradingObj);
+      /*** End of primary desk and client segment validations ***/
 
-                  // Mandatory field Validations
-                  //this.formMandatoryFieldCheck();
-                  //End of Mandatory field Validations
-                  //When all the validations are passed submit to server
-                  this.sendToServer(ACTION_SUBMIT);
-            } else {
-                 this.setState({isSuccess: false, errorHandlers: TRADING_DESK_VALIDATION_MESSAGE});
-                  return false;
-            }
-            // Ends Trading Desk validations
+      /****  Trading Desk validations ****/
+      this.atleastOneBankEntityAndEconomicRowMustBeSelected(tradingDeskLength, tradingObj);
+       /**** Ends Trading Desk validations ****/
       },
       discard() {
             this.sendToServer(ACTION_DISCARD);
@@ -361,32 +292,70 @@ var App = React.createClass({
       cancel() {
             this.redirectToNextPage(ACTION_CANCEL)
       },
-      atleastOnePrimaryDesk(tradingObj){
-            let tradingDeskLength = tradingObj.length;
-            // Select atleast one trading desk as primary desk & atleast one client segment should be selected
-            let atleaseOnePrimary = false;
-            let existCheckedOrNot = false;
-            let missedDeskName =[];
-            _.map(tradingObj, (eachTrading, key) => {
-                  console.log(eachTrading.internalTradesOnly);
-                  
-                  if( (eachTrading.internalTradesOnly === 'N') 
-                  && (eachTrading.interbankTradesBToBOnly === 'N'
-                        &&  eachTrading.financialInstitutions === 'N'
-                        &&  eachTrading.globalCorporates === 'N'
-                        &&  eachTrading.midMarkets === 'N'
-                        &&  eachTrading.sME === 'N'
-                        &&  eachTrading.sMESegment === 'N'
-                        &&  eachTrading.wealth === 'N'
-                        &&  eachTrading.retailBusinessBanking === 'N'
-                        &&  eachTrading.retail === 'N')
-                  ){
-                        alert("Atleast internal or one external should be selected for " + eachTrading.deskName );
-                        return false;
-                  }
+      atleastOnePrimaryDeskAndInternalOrExternalTradesFlag(tradingObj){
+      let tradingDeskLength = tradingObj.length;
+      // Select atleast one trading desk as primary desk & atleast one client segment should be selected
+      let atleaseOnePrimary = false;
+      _.map(tradingObj, (eachTrading, key) => {
+         var internalOrExternal = (eachTrading.internalTradesOnly === 'N') || (eachTrading.interbankMarketHedging === 'N' && eachTrading.externalGCT === 'N' && eachTrading.financialInstitutions === 'N'
+         && eachTrading.globalCorporates === 'N' && eachTrading.midMarkets=== 'N' && eachTrading.moneyMarketLA === 'N' && eachTrading.sME === 'N' &&
+         eachTrading.sMESegment === 'N' && eachTrading.wealth === 'N' && eachTrading.retailBusinessBanking === 'N' && eachTrading.retail === 'N');
 
-            });
-      },
+         if(internalOrExternal){
+            console.log("internalOrExternal if", internalOrExternal)
+            var clientSegmentMessage = CLIENT_SEGMENT_VALIDATION_MESSAGE + eachTrading.deskName;
+            this.setState({ isSuccess: false,errorHandlers:clientSegmentMessage});
+            return false;
+         } else {
+            console.log("internalOrExternal else", internalOrExternal)
+         }
+         if(eachTrading.primaryDesk) {
+            atleaseOnePrimary = true;
+         }
+      });
+      if(atleaseOnePrimary){
+         this.setState({isSuccess: false,
+            errorHandlers: PRIMARY_DESK_VALIDATION_MESSAGE});
+         return false;
+      }
+   },
+   atleastOneBankEntityAndEconomicRowMustBeSelected(tradingDeskLength, tradingObj){
+      if(tradingDeskLength > 0){
+         for(let i=0; i < tradingDeskLength; i++){
+            let eachBankenityObj = tradingObj[i].bankEntities;
+            let bankEntityLength = eachBankenityObj.length;
+            // Bank Entity validations
+            if(bankEntityLength > 0){
+               for(let j=0; j < eachBankenityObj.length; j++) {
+                  let eachBankenityRowObj = eachBankenityObj[j].bankEntityCurrencies;
+                  let eachBankenityRowObjLength = eachBankenityRowObj.length;
+                  // Trade Economic data Row ***
+                  if(eachBankenityRowObjLength > 0){
+                     console.log("Valid entity row")
+                  } else {
+                     var tradeEconomicDateMessage = TRADE_ECONOMIC_DATA_ROW_VALIDATION_MESSAGE + tradingObj[i].deskName+" and the "+ eachBankenityObj[j].bankEntityName + "-" + eachBankenityObj[j].region;
+                     this.setState({isSuccess: false,
+                        errorHandlers: tradeEconomicDateMessage});
+                     return false;
+                  }
+                  // Ends Trade Economic data Row validations
+               }
+            } else {
+               var BANK_ENTITY_VALIDATION_MESSAGE = "At least one Bank Entity must be selected for "+tradingObj[i].deskName;
+               this.setState({isSuccess: false,
+                  errorHandlers: BANK_ENTITY_VALIDATION_MESSAGE});
+               return false;
+            }
+            // Ends Bank Entity validations
+         }
+         //When all the validations are passed submit to server
+         this.sendToServer(ACTION_SUBMIT);
+      } else {
+         this.setState({isSuccess: false,
+            errorHandlers: TRADING_DESK_VALIDATION_MESSAGE});
+         return false;
+      }
+   },
 
       sendToServer: function (action) {
             let tradingObj = this.tradingDesks.productTradingDesks;
