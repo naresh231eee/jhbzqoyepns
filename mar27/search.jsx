@@ -19,7 +19,7 @@ import * as util from "./../util/util.js";
 var SearchPage = React.createClass({
    getInitialState: function(){
       return {
-         searchResult: landingPage.landingAPI.data,
+         searchResult: [],
          isSuccess: true,
       };
    },
@@ -50,17 +50,19 @@ var SearchPage = React.createClass({
       var SF = $('#searchFor').val();
 
       let options = {};
-
+      console.log(landingPage.landingAPI.data);
       if(SB){
-            options.SB = SB;
+            // options.SB = SB;
       }
       if(ST){
-            options.ST = ST;
+            // options.ST = ST;
       }
       if(SF){
             options.primaryDesk = SF;
       }
-
+      
+      console.log(options)
+      console.log("options ended")
       let filterData = ''; let one = false;
       if(SB=== '' && ST ==='' && SF ===''){
        filterData = landingPage.landingAPI.data;
@@ -71,6 +73,7 @@ var SearchPage = React.createClass({
       }
       console.log("filterData");
       console.log(filterData);
+      console.log("filterData ended");
       /*$.ajax({
          url: "apd/findProducts?key="+SB+"&&type="+ST+"&&value="+SF,
          dataType: 'json',
@@ -105,12 +108,35 @@ var SearchPage = React.createClass({
             console.log("errormessage",responseText);
          }.bind(this)
       });*/
-               this.setState({isSuccess: false,
-                              actionMessage: one,
-                               searchResult: filterData.length > 0 ? filterData : []});
+      this.setState({isSuccess: false,
+            actionMessage: one,
+                  searchResult: filterData.length > 0 ? filterData : []});
       console.log("this.state.searchResult");                               
-      console.log(this.state.searchResult);                               
+      console.log(this.state.searchResult);    
+      this.forceUpdate();
+      // this.componentWillUpdate();                           
    },
+   componentDidUpdate(){
+      // console.log("this.state.searchResult");                               
+      console.log(this.state.searchResult);
+      //this.myGrid();     
+   },
+   componentDidMount(){
+      //     <this className="myGrid"></this>
+   },
+   myGrid(data, currentUser){
+      console.log("my grid data")
+      console.log(data);
+      if(data.length > 0){
+      return(<ProductPendingInitiation key={Math.random()} products={data} action={this.state.actionMessage} user={currentUser} headerText={SEARCH_HEADER} />);
+      }
+   },
+   shouldComponentUpdate: function(nextProps, nextState){
+    // return a boolean value
+     console.log("Should Component Update");    
+     console.log(this.state.searchResult);    
+//     return true;
+},
    render() {
       var messageColour = this.state.isSuccess? "green" : "red";
       console.log("search.jsx:render: this.state.actionMessage", this.state.actionMessage);
@@ -220,6 +246,7 @@ var SearchPage = React.createClass({
  
  
  var currentUser = '';
+ let dataGrid = this.myGrid(this.state.searchResult, currentUser);
       return (
          <div className="container-fluid">
             <PrimaryHeader user={this.state.user}/>
@@ -267,13 +294,13 @@ var SearchPage = React.createClass({
             </div>
             <div className="row">
                <div className="col-lg-12 col-md-12">
-                  <h2>Products Search Result</h2>
+                
                   <div>
                      <span>
                          <font color={messageColour}><b>{this.state.actionMessage}</b></font>
                      </span>
                   </div>
-                  <ProductPendingInitiation products={this.state.searchResult} action={this.state.actionMessage} user={currentUser} headerText={SEARCH_HEADER} />
+                  {dataGrid}
                   { /*<ApdSortableTable data={this.state.searchResult} columns={columns}/>*/ }
                </div>
             </div>
