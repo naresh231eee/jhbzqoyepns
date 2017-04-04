@@ -1,4 +1,4 @@
-.mainBody {
+@mainBody {
     width: 1294px;
 }
 
@@ -7,8 +7,8 @@
 }
 
 .container-fluid {
-    padding-right: 5px !important;
-    padding-left: 5px !important;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 .col-sm-1,
@@ -63,14 +63,24 @@
 }
 
 .displayProductName {
-    background: #333333;
+    background: #2d8253;
+    padding: 1px;
     color: #fff;
+    overflow: hidden;
+    border: 0px solid #fff;
+}
+
+.errorMessagesDisplay {
+    background: white;
+    padding: 1px;
     overflow: hidden;
     border: 1px solid #fff;
 }
 
 .main-content {
     background-color: #fff;
+    margin-bottom: 50px;
+    padding-top: 195px;
 }
 
 .header {
@@ -96,6 +106,18 @@
     font-size: 1em;
     font-weight: bold;
     margin-top: 10px;
+}
+
+.bankentity-containers {
+    background-color: #f5f5f5;
+    border: 1px solid #649c00;
+    border-radius: 4px;
+    font-size: .951em;
+    font-weight: bold;
+    line-height: 1.41;
+    margin-top: 1px;
+    padding: 2px;
+    color: black;
 }
 
 .multiselect {
@@ -136,8 +158,16 @@
     padding-left: 45px;
 }
 
+.padding-5 {
+    padding: 5px 0;
+}
+
 .padding-left-90 {
     padding-left: 90px;
+}
+
+.padding-top-bottom {
+    padding: 20px 0;
 }
 
 .margin-left-25 {
@@ -298,8 +328,8 @@ label {
 /*.boxMinWidth{ min-width: 120px;}*/
 
 h1 {
-    color: #fff !important;
-    font-size: 1.5em !important;
+    color: #fff;
+    font-size: 1.5em;
     padding: 13px 0 0 70px;
 }
 
@@ -415,37 +445,7 @@ span.requiredField {
     -o-transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     transition: all 1s;
-}
-
-.innerExpandable {
-    padding-top: 10px;
-    /* overflow set to hidden to hide the expanded text */
-    overflow: hidden;
-    /* all style changes will ease-in-out for 1s */
-    -moz-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    -webkit-transition: all 1s ease-in-out;
-    transition: all 1s;
-    border: 0px;
     height: 20px;
-}
-
-.heigherExpandable {
-    padding-top: 10px;
-    /* overflow set to hidden to hide the expanded text */
-    overflow: hidden;
-    /* all style changes will ease-in-out for 1s */
-    -moz-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    -webkit-transition: all 1s ease-in-out;
-    border: 0px;
-    transition: all 1s;
-}
-
-.minHeight {
-    height: 60px;
 }
 
 .maxHeight {
@@ -471,4 +471,48 @@ span.requiredField {
 
 .smeStyles {
     width: 125px !important;
+}
+
+.react-grid-Cell {
+    height: 25px !important;
+    font-weight: 200 !important;
+}
+
+
+/*.react-grid-Cell__value ul { background: #000 !important; }
+.react-autocomplete-Autocomplete__results>li>a { color: #fff !important; }*/
+
+.innerExpandable {
+    padding-top: 10px;
+    /* overflow set to hidden to hide the expanded text */
+    overflow: hidden;
+    /* all style changes will ease-in-out for 1s */
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    transition: all 1s;
+    border: 0px;
+    height: 20px;
+}
+
+.outerExpandable {
+    padding-top: 10px;
+    /* overflow set to hidden to hide the expanded text */
+    overflow: hidden;
+    /* all style changes will ease-in-out for 1s */
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    border: 0px;
+    transition: all 1s;
+}
+
+.minHeight {
+    height: 60px;
+}
+
+.maxHeight {
+    height: auto !important;
 }
