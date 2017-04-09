@@ -217,6 +217,7 @@ var AddTradingDesk = React.createClass({
                 this.props.deleteBankEntity(updateBankEntity, keyBankEntity[1]);
                 this.forceUpdate();
         },
+        
         deleteTrading(e) {
                 this.props.deleteTrading(e.target.id);
         },
@@ -256,6 +257,28 @@ var AddTradingDesk = React.createClass({
                 }
                 return resultChecked;
         },
+         enableDisableExternal(indexValue, isChecked){
+                var checkboxes = document.getElementsByClassName(indexValue+"_external_Channels");
+                for(var i=0; i < checkboxes.length; i++){
+                        if(isChecked){
+                                console.log(checkboxes[i]);
+                        // this.state.tradingDesk[indexValue][checkboxes[i].name] = "N";
+                        checkboxes[i].setAttribute("disabled", "disabled");
+                        } else {
+                        checkboxes[i].removeAttribute("disabled");
+                        }
+                }
+                         this.state.smeStatus = true;
+                // this.state.tradingDesk[indexValue].internalTradesOnly = "Y";
+                // this.forceUpdate();
+                // this.isComponentDirty = true;
+        },
+        componentDidMount(){
+                // Component will work after total loaded
+                // we need to pass internal trades only true or false
+                
+                this.enableDisableExternal(this.props.tradingIndex, (this.state.internalTradesOnly === 'Y' ? true : false))
+        },
         render() {
                 //Trading Desk
                 let approvedHeritage = this.getRefDataValueForKey(apidata.BANK_ENTITY);
@@ -287,6 +310,7 @@ var AddTradingDesk = React.createClass({
                      this.state.sMESegmentDisabled = true;
                          remainingClientSegments = true;
                   }*/
+                  
                 return (
                         <div className="list-group-item product-containers minHeight" id={'trading_' + this.props.tradingIndex} data-id={this.props.tradingIndex} onClick={this.expandCollapse}> {this.getDeskName()}
                                 <button className="btn btn-default margin-left-50" type="button" onClick={this.deleteTrading}
