@@ -1,1 +1,43 @@
-test
+let totalTradings=[];
+
+let bankEntity1 = { bstatus: 'inactive', 
+        rows: [ {id:1, underlyingStatus : 'active'},
+                {id:2, underlyingStatus : 'inactive'},
+                {id:3, underlyingStatus : 'active'},
+                {id:4, underlyingStatus : 'inactive'},
+                {id:5, underlyingStatus : 'active'},
+      ]};
+
+ let bankEntity2 ={ bstatus: 'active', 
+          rows: [{id:71, underlyingStatus : 'active'},
+        {id:82, underlyingStatus : 'inactive'},
+        {id:43, underlyingStatus : 'active'},
+      {id:64, underlyingStatus : 'inactive'},
+      {id:75, underlyingStatus : 'active'},
+      ]};
+
+totalTradings.push(bankEntity1);
+totalTradings.push(bankEntity2);
+
+reloadRows(bankEntityRows, value){
+    _.map(bankEntityRows, (data, key)=>{
+            bankEntityRows[key].underlyingStatus = value;
+    });
+    return bankEntityRows
+},
+
+handleSelectChange(e){
+    var bankEntityRows = this.state.bankEntityRows;
+    var id = e.target.id;
+    var column = id.split("_")[0];
+    var value = e.target.value;
+    
+    _.map(totalTradings, (tData, tKey) => {
+           totalTradings[tKey].bstatus = value;
+           totalTradings[tKey].rows = this.reloadRows(totalTradings[tKey].rows, value);
+    });
+
+    console.log(totalTradings)
+    bankEntityRows[column] = value;
+    this.setState(bankEntityRows);
+},
