@@ -1,0 +1,216 @@
+
+
+export const jsonData = [
+        {"value": "Change Details"},
+        {"value": "Product Details"},
+        {"value": "Valuation Details"},
+        {"value": "Trade Booking System"},
+        {"value": "Business Area Risk Assesment"},
+        {"value": "Governance Details"},      
+        {"value": "Regulatory Classification"},
+        {"value": "Add Trading Desk"}
+    ];
+
+export const jsonData2 = [
+        {"value": "Change Details"},
+        {"value": "Product Details"},
+        {"value": "Valuation Details"},
+        {"value": "Trade Booking System"},
+        {"value": "Business Area Risk Assesment"},
+        {"value": "Governance Details"},      
+        {"value": "Regulatory Classification"},
+        {"value": "Add Trading Desk"}
+    ];
+
+export const refData = {
+    "refDataKeyGroups": [
+    {
+        "refDataKeyName": "Application MiFID Client Classification",
+        "idValues": [
+            {
+                "refDataId": 104,
+                 "refDataValue": "Professional",
+            },
+            {
+                "refDataId": 105,
+                 "refDataValue": "Eligible Counterparty (ECP)",
+            },
+            {
+                "refDataId": 106,
+                 "refDataValue": "Retail",
+            }
+        ]
+    },
+    {
+        "refDataKeyName": "Product Status",
+        "idValues": [
+            {
+                "refDataId": 808,
+                 "refDataValue": "Active",
+            },
+            {
+                "refDataId": 809,
+                 "refDataValue": "Suspended",
+            },
+            {
+                "refDataId": 810,
+                 "refDataValue": "Withdrawn",
+            },
+            {
+                "refDataId": 811,
+                 "refDataValue": "Closed",
+            }
+        ]
+    },
+    {
+        "refDataKeyName": "Approval Restriction Type",
+        "idValues": [
+            {
+                "refDataId": 107,
+                 "refDataValue": "Adjustment Factors",
+            },
+            {
+                "refDataId": 108,
+                 "refDataValue": "Approval",
+            },
+            {
+                "refDataId": 109,
+                 "refDataValue": "Back Book Restriction",
+            },
+            {
+                "refDataId": 110,
+                 "refDataValue": "Back to Back Only",
+            },
+            {
+                "refDataId": 111,
+                 "refDataValue": "Benchmark",
+            },
+            {
+                "refDataId": 112,
+                 "refDataValue": "Clearing",
+            },
+            {
+                "refDataId": 113,
+                 "refDataValue": "Client Type",
+            }
+        ]
+    }],
+
+    "refDataRelationships": [
+        {
+            "relationshipId": 1,
+            "refDataParentId": "111",
+            "refDataChildId": "234",
+        },
+        {
+            "relationshipId": 1,
+            "refDataParentId": "111",
+            "refDataChildId": "544",
+        },
+
+        {
+            "relationshipId": 1,
+            "refDataParentId": "111",
+            "refDataChildId": "565",
+        }
+    ]
+
+}
+
+export const productDetails = {
+    "id": 2,
+    "apdID": "A132",
+    "productName": "FX Spot",
+    "productDescription": "hello description",
+    "productCode": "SFX",
+    "businessUnit":"FM",
+    "ProductGovernance" :{
+        "coreID":2,
+        "lastAARDate": 1433113200000,
+        "nextAARDate": 1462057200000
+    },
+    "productValuation" :{
+        "coreID":2,
+        "qLProductId": "FX Spot",
+        "pricingMode": "DCF:VANILLA:FXLINEAR:FX"
+    },
+    "productParties" :[
+    {
+        "tradingDesk": "FX Spot",
+        "deskHead": "Rob Hale",
+        "primaryDesk":"Y",
+        "interbankMarkets": "N",
+        "financilaInstitutions": "Y",
+        "ProductUnderlyings": [
+        {
+            "bankEntity":"LB",
+            "currency1": "AED",
+            "currency2": "*",
+            "tenor": "30"
+        },
+        {
+            "bankEntity":"LB",
+            "currency1": "AED",
+            "currency2": "*",
+            "tenor": "30"
+        },
+        ]
+
+   },
+   {
+        "tradingDesk": "Rates Desk",
+        "deskHead": "Christophe Coutte",
+        "primaryDesk":"N",
+        "interbankMarkets": "N",
+        "financilaInstitutions": "Y",
+        "ProductUnderlyings": [
+        {
+            "bankEntity":"BOS",
+            "currency1": "JPY",
+            "currency2": "*",
+            "tenor": "30"
+        },
+        {
+            "bankEntity":"BOS",
+            "currency1": "JPY",
+            "currency2": "*",
+            "tenor": "30"
+        }]
+   }],
+
+   "ProductConditions" :[
+   {
+        "tradingDesk": "Rates Desk",
+        "approvalRestrictionDescription": "Internal Only",
+        "exchangeName":null,
+        "approverName": null,
+        "clientTypeRestriction": null
+   },
+   {
+        "tradingDesk": "FX Spot",
+        "approvalRestrictionDescription": "Christophe Coutte",
+        "exchangeName":null,
+        "approverName": null,
+        "clientTypeRestriction": null
+   }]
+}
+
+export const tradingCount = [
+        {"value": 1},
+        {"value": 2},
+        {"value": 3},
+        {"value": 4},
+        {"value": 5},
+        {"value": 6},      
+        {"value": 7},
+        {"value": 8}
+    ];
+
+ export const apiKeys = {
+        "value": "value",
+        "refDataId" : "refDataId",
+        "refDataKeyGroups" : "refDataKeyGroups",
+        "refDataValue" : "refDataValue",
+
+
+ };   
