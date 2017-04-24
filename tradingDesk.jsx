@@ -3,19 +3,18 @@ import moment from "moment";
 import AddTradingDesk from "./addTradingDesk.jsx";
 import * as apidata from "./../api/api_form.jsx";
 import SelectBox from "./../formfields/select.js";
-
 var TradingDesk = React.createClass({
-   isComponentDirty:false,
    getInitialState: function () {
       return this.getStateFromProps(this.props);
    },
    getStateFromProps: function (props) {
+      console.log("TradingDesk:getStateFromProps.Props",props);
       var refData, disableFormFields, multiSelectName = {};
-      var tradingDesk = this.props.productId ? this.props.pd.productTradingDesks : [];
-      var productType = this.props.pd ? this.props.pd.productType : '';
-      var params = this.props.params ? this.props.params : '';
-      var isSuccess = this.props.isSuccess ? this.props.isSuccess : '';
-      var errorHandlers = this.props.errorHandlers ? this.props.errorHandlers : '';
+      var tradingDesk = props.productId ? props.pd.productTradingDesks : [];
+      var productType = props.pd ? props.pd.productType : '';
+      var params = props.params ? props.params : '';
+      var isSuccess = props.isSuccess ? props.isSuccess : '';
+      var errorHandlers = props.errorHandlers ? props.errorHandlers : '';
       return {
          "insert":false, tradingDesk: tradingDesk, refData: refData, productType : productType,
          disableFormFields: disableFormFields, multiSelectName: multiSelectName, params : params,
@@ -23,8 +22,8 @@ var TradingDesk = React.createClass({
       };
    },
    componentWillReceiveProps: function (newProps) {
-      console.log("TradingDesk:componentWillReceiveProps.props",newProps);
-      if(!this.isComponentDirty || newProps.mandatoryRerender) {
+      console.log("TradingDesk:componentWillReceiveProps.newProps",newProps);
+      if(newProps.isSuccess) {
          this.setState(this.getStateFromProps(newProps));
       }
    },
@@ -93,7 +92,6 @@ var TradingDesk = React.createClass({
             }
 
          );
-         this.isComponentDirty = true;
          this.forceUpdate();
       }
    },
@@ -111,9 +109,7 @@ var TradingDesk = React.createClass({
       console.log("TradingDesk:componentWillMount: Component mounting started:", moment(moment.now()).format("DD/MM/YYYY hh:mm:ss A"));
    },
    deleteBankEntity(bankEntity, key){
-      console.log(bankEntity);
       this.state.tradingDesk[key].bankEntities = bankEntity;
-      this.isComponentDirty = true;
    },
    deleteTrading(id){
       let delId = id.split('_');
@@ -126,7 +122,6 @@ var TradingDesk = React.createClass({
          }
          this.state.tradingDesk = updateTradingDesk;
          this.forceUpdate();
-         this.isComponentDirty = true;
       }
    },
    enableDisableExternal(indexValue, isChecked){
@@ -147,9 +142,22 @@ var TradingDesk = React.createClass({
         this.state.tradingDesk[indexValue].internalTradesOnly = "Y";
 
         this.forceUpdate();
-      this.isComponentDirty = true;
+   },
+   tradingDeskStatus(index, value){
+      var tradingDesk = this.state.tradingDesk[index];
+      var bankEntities = tradingDesk.bankEntities;
+      for (let i = 0; i < bankEntities.length; i++) {
+         this.state.tradingDesk[index].bankEntities[i].bankEntityStatus = value;
+         var bankEntityCurrencies =  tradingDesk.bankEntities[i].bankEntityCurrencies;
+         for(let j = 0; j < bankEntityCurrencies.length; j++){
+            bankEntityCurrencies[j].underlyingStatus = value;
+         }
+      }
+      this.setState(tradingDesk);
+      this.forceUpdate();
    },
    render() {
+      console.log("TradingDesk.jsx.render.state", this.state.tradingDesk);
       let selectDesk = this.getRefDataValueForKey(apidata.TRADING_DESK);
       let approvedHeritage = this.getRefDataValueForKey(apidata.BANK_ENTITY);
 
@@ -207,6 +215,7 @@ var TradingDesk = React.createClass({
                   productType={this.props.productType}
                   params={this.state.params}
                   enableDisableExternal = {this.enableDisableExternal}
+                  tradingDeskStatus = {this.tradingDeskStatus}
                />
             )) : ''}
          </div>
