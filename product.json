@@ -1,0 +1,1026 @@
+{
+  "user": null,
+  "success": true,
+  "data": {
+    "id": 291,
+    "apdId": "A172",
+    "productName": "inactive bank entity test",
+    "productDescription": "tets",
+    "productCode": null,
+    "oneOffTrading": "Y",
+    "productStatus": "",
+    "productVersion": 0,
+    "productComplexity": "Low",
+    "productReason": "",
+    "productComment": "",
+    "confirmationComment": null,
+    "advisoryBasis": null,
+    "inscopeForPRIPPS": "N",
+    "pRIPPSSecMarketImpact": "N",
+    "clientJurisdiction": null,
+    "residualRiskRating": "High",
+    "policyReference": null,
+    "npaReference": "",
+    "mustUseMarkit": " ",
+    "compositeProduct": " ",
+    "productType": "Credit",
+    "oneMIHierarchy": "",
+    "auditStatus": "Initiated",
+    "auditAction": "save",
+    "auditUser": "Guest",
+    "auditDateTime": 1493033745653,
+    "productGovernance": {
+      "coreId": 291,
+      "lastAARDate": null,
+      "nextAARDate": null,
+      "productOwnerName": null,
+      "productOwnerPhone": null,
+      "complianceOwnerName": null,
+      "lastApprovalDate": null,
+      "lastApprovalBy": null,
+      "productLaunchDate": null,
+      "tAndCLastReviewDate": null,
+      "tAndCIdentifier": null
+    },
+    "productExecutions": [],
+    "productRegs": [
+      {
+        "id": 855,
+        "attrName": "Legal Name of Manufacturer",
+        "attrValue": null
+      },
+      {
+        "id": 856,
+        "attrName": "Third Party Distributor Legal Name",
+        "attrValue": null
+      }
+    ],
+    "productValuations": [],
+    "productCoreAttributes": [
+      {
+        "id": 292,
+        "attrName": "Business Unit",
+        "attrValue": "FM"
+      },
+      {
+        "id": 293,
+        "attrName": "Business Unit",
+        "attrValue": "CM"
+      }
+    ],
+    "productHierarchy": [
+      {
+        "id": 1525,
+        "attrName": "Asset Class",
+        "attrValue": "Credit"
+      },
+      {
+        "id": 1526,
+        "attrName": "Product Family",
+        "attrValue": "Loans"
+      },
+      {
+        "id": 1527,
+        "attrName": "Product Sub Family",
+        "attrValue": null
+      },
+      {
+        "id": 1528,
+        "attrName": "Product Subset",
+        "attrValue": null
+      }
+    ],
+    "productTradingDesks": [
+      {
+        "tradingDeskId": 281,
+        "deskName": "Sales Desk",
+        "deskStatus": "Active",
+        "deskHead": "priya",
+        "primaryDesk": "Y",
+        "secondaryDesk": "N",
+        "internalTradesOnly": "N",
+        "backToBackOnly": null,
+        "interbankMarketHedging": null,
+        "financialInstitutions": "N",
+        "globalCorporates": "Y",
+        "midMarkets": "Y",
+        "sME": "N",
+        "sMESegment": "N",
+        "wealth": "N",
+        "retailBusinessBanking": "N",
+        "retail": "N",
+        "externalGCT": null,
+        "externalClient": null,
+        "moneyMarketLA": "Y",
+        "deskAttributes": [],
+        "bankEntities": [
+          {
+            "bankEntityId": 547,
+            "bankEntityName": "BOS",
+            "bankEntityStatus": "Active",
+            "region": "London",
+            "anyCcyPairAllowed": " ",
+            "bankEntityCurrencies": [
+              {
+                "bankEntityCurrencyId": 27309,
+                "currency1": "BGN",
+                "currency2": null,
+                "maxTenor": null,
+                "referenceRate": null,
+                "settlementSystem": null,
+                "underlyingStatus": "Active",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": null,
+                "floating": null,
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": null,
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498947,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498948,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498949,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498950,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498951,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498952,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498953,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498954,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498955,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498956,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498957,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498958,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              },
+              {
+                "bankEntityCurrencyId": 27308,
+                "currency1": "CNY",
+                "currency2": null,
+                "maxTenor": null,
+                "referenceRate": null,
+                "settlementSystem": null,
+                "underlyingStatus": "Inactive",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": null,
+                "floating": null,
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": null,
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498935,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498936,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498937,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498938,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498939,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498940,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498941,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498942,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498943,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498944,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498945,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498946,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              },
+              {
+                "bankEntityCurrencyId": 27307,
+                "currency1": "DZD",
+                "currency2": null,
+                "maxTenor": null,
+                "referenceRate": null,
+                "settlementSystem": null,
+                "underlyingStatus": "Active",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": null,
+                "floating": null,
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": null,
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498923,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498924,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498925,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498926,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498927,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498928,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498929,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498930,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498931,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498932,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498933,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498934,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              },
+              {
+                "bankEntityCurrencyId": 27306,
+                "currency1": "EGP",
+                "currency2": null,
+                "maxTenor": null,
+                "referenceRate": null,
+                "settlementSystem": null,
+                "underlyingStatus": "Inactive",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": "Y",
+                "floating": null,
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": null,
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498911,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498912,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498913,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498914,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498915,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498916,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498917,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498918,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498919,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498920,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498921,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498922,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              }
+            ],
+            "uniqueBusinessKey": "Bank Entity: BOS-London"
+          },
+          {
+            "bankEntityId": 546,
+            "bankEntityName": "LB",
+            "bankEntityStatus": "Active",
+            "region": "London",
+            "anyCcyPairAllowed": " ",
+            "bankEntityCurrencies": [
+              {
+                "bankEntityCurrencyId": 27304,
+                "currency1": "CHF",
+                "currency2": null,
+                "maxTenor": "40",
+                "referenceRate": "ZAR - JIBAR",
+                "settlementSystem": null,
+                "underlyingStatus": "Active",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": "N",
+                "floating": "Y",
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": null,
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498887,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498888,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498889,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498890,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498891,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498892,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498893,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498894,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498895,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498896,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498897,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498898,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              },
+              {
+                "bankEntityCurrencyId": 27305,
+                "currency1": "DZD",
+                "currency2": null,
+                "maxTenor": null,
+                "referenceRate": null,
+                "settlementSystem": null,
+                "underlyingStatus": "Active",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": "Y",
+                "floating": null,
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": "TY",
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498899,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498900,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498901,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498902,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498903,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498904,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498905,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498906,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498907,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498908,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498909,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498910,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              },
+              {
+                "bankEntityCurrencyId": 27303,
+                "currency1": "EUR",
+                "currency2": null,
+                "maxTenor": "125",
+                "referenceRate": "GBP - SONIA",
+                "settlementSystem": null,
+                "underlyingStatus": "Active",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": "Y",
+                "floating": "Y",
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": null,
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498875,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498876,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498877,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498878,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498879,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498880,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498881,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498882,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498883,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498884,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498885,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498886,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              }
+            ],
+            "uniqueBusinessKey": "Bank Entity: LB-London"
+          }
+        ],
+        "uniqueBusinessKey": "[Trading Desk: Sales Desk|"
+      },
+      {
+        "tradingDeskId": 282,
+        "deskName": "Repo Desk",
+        "deskStatus": "Active",
+        "deskHead": "PP",
+        "primaryDesk": "N",
+        "secondaryDesk": "N",
+        "internalTradesOnly": "N",
+        "backToBackOnly": null,
+        "interbankMarketHedging": "N",
+        "financialInstitutions": "N",
+        "globalCorporates": "N",
+        "midMarkets": "Y",
+        "sME": "Y",
+        "sMESegment": null,
+        "wealth": "N",
+        "retailBusinessBanking": "N",
+        "retail": "N",
+        "externalGCT": "N",
+        "externalClient": null,
+        "moneyMarketLA": "Y",
+        "deskAttributes": [],
+        "bankEntities": [
+          {
+            "bankEntityId": 548,
+            "bankEntityName": "BOS",
+            "bankEntityStatus": "Active",
+            "region": "London",
+            "anyCcyPairAllowed": " ",
+            "bankEntityCurrencies": [
+              {
+                "bankEntityCurrencyId": 27310,
+                "currency1": "EGP",
+                "currency2": null,
+                "maxTenor": null,
+                "referenceRate": null,
+                "settlementSystem": null,
+                "underlyingStatus": "Active",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": null,
+                "floating": "Y",
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": null,
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498959,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498960,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498961,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498962,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498963,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498964,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498965,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498966,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498967,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498968,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498969,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498970,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              },
+              {
+                "bankEntityCurrencyId": 27311,
+                "currency1": "EUR",
+                "currency2": null,
+                "maxTenor": null,
+                "referenceRate": null,
+                "settlementSystem": null,
+                "underlyingStatus": "Inactive",
+                "underlyingStatusChangeDate": null,
+                "issuer": null,
+                "clearingAgent": null,
+                "cCPOnly": null,
+                "minAmount": null,
+                "maxTime": null,
+                "escalationCondition": null,
+                "deferredSettlementPeriod": null,
+                "settlementDaysPermitted": null,
+                "tradeSettlementCash": null,
+                "tradeSettlementPhysical": null,
+                "bankingBook": null,
+                "tradingBook": null,
+                "fixed": null,
+                "floating": null,
+                "shortPosition": null,
+                "openRisk": null,
+                "exchange": null,
+                "exchangeSymbol": null,
+                "oTC": null,
+                "balanceSheet": null,
+                "openRiskMaxTenor": null,
+                "exchangePlatform": null,
+                "bankEntityCurrencyFeatures": [
+                  {
+                    "id": 498971,
+                    "attrName": "Modal Val approval Yrs >",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498972,
+                    "attrName": "Market Risk approval trades > per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498973,
+                    "attrName": "Credit Risk Hedged",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498974,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498975,
+                    "attrName": "Business Control",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498976,
+                    "attrName": "Operations",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498977,
+                    "attrName": "Risk Platforms",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498978,
+                    "attrName": "2 Way Letter Required",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498979,
+                    "attrName": "Limit £m",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498980,
+                    "attrName": "Max holding period - day",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498981,
+                    "attrName": "Max trades per Yr",
+                    "attrValue": ""
+                  },
+                  {
+                    "id": 498982,
+                    "attrName": "Max total executed trades",
+                    "attrValue": ""
+                  }
+                ]
+              }
+            ],
+            "uniqueBusinessKey": "Bank Entity: BOS-London"
+          }
+        ],
+        "uniqueBusinessKey": "[Trading Desk: Repo Desk|"
+      }
+    ],
+    "approvedVersionExists": false
+  },
+  "errorMessages": []
+}
