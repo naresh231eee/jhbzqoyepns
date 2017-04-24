@@ -99,12 +99,11 @@ var NewBankEntity= React.createClass({
       var value = e.target.value;
       bankEntityRows[column] = value;
       if(value){
-         if(confirm("Do you want to change the status of " + this.props.bankEntityName + " - "+ this.props.region + " to "+value+" ?")){
-            this.bankEntityStatusChangeToggle(value);
-         }else{
+         if(confirm(apidata.STATUS_CONFIRM_MESSAGE + this.props.bankEntityName + " - "+ this.props.region + " to "+value+" ?")){
+            this.bankEntityStatusToggle(value);
+         } else {
             window.location();
          }
-         this.bankEntityStatusChangeToggle(value);
       }
       this.setState(bankEntityRows);
    },
@@ -143,11 +142,16 @@ var NewBankEntity= React.createClass({
    renderBankEntitiesRows(){
       this.setState({renderBankEntitiesRows: !this.state.renderBankEntitiesRows})
    },
-   bankEntityStatusChangeToggle(value){
-      console.log("bankEntityStatusChangeToggle value", value);
+   bankEntityStatusToggle(value){
+      var tradeEconomyRows = this.state.bankEntityRows.bankEntityCurrencies;
+      var bankEntityRows = this.state.bankEntityRows;
+      for (let i = 0; i < tradeEconomyRows.length; i++) {
+            this.state.bankEntityRows.bankEntityCurrencies[i].underlyingStatus = value;
+      }
+      this.setState(bankEntityRows);
+      this.forceUpdate();
    },
    render() {
-      console.log("AddBankEntity.jsx.render.state", this.state.bankEntityRows);
       var bankEntityRow;
       if(this.state.insertRow){
          bankEntityRow = <AddBankEntityRow />;
